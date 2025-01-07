@@ -6287,18 +6287,6 @@
 		)
 		(uuid "213b7096-f206-49e1-9b8d-1c51e4a98b9d")
 	)
-	(text "Power"
-		(exclude_from_sim no)
-		(at 225.806 134.366 0)
-		(effects
-			(font
-				(size 2.54 2.54)
-				(thickness 0.508)
-				(bold yes)
-			)
-		)
-		(uuid "28dbb3f7-eac8-450e-9e58-8797449a09c2")
-	)
 	(text "DAT2\nDAT3\nCMD\nCLK\nDAT0\nDAT1"
 		(exclude_from_sim no)
 		(at 265.684 34.544 0)

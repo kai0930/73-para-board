@@ -33,6 +33,6 @@ extern "C" void app_main(void) {
              data.gyro.y, data.gyro.z);
     ESP_LOGI(TAG, "Acceleration magnitude: %.2f G", data.accel_norm);
 
-    vTaskDelay(pdMS_TO_TICKS(100));
+    vTaskDelay(pdMS_TO_TICKS(10));
   }
 }

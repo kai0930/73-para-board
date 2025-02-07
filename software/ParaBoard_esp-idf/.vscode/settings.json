@@ -1,6 +1,10 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "ms-vscode.cpptools",
+  "[cpp]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
   "C_Cpp.intelliSenseEngine": "default",
   "idf.espIdfPathWin": "C:\\Users\\gmh_k\\esp\\v5.4\\esp-idf",
   "idf.openOcdConfigs": [
@@ -25,5 +29,7 @@
     "text_encoding": "cpp",
     "regex": "cpp"
   },
-  "C_Cpp.formatting": "clangFormat"
+  "C_Cpp.formatting": "clangFormat",
+  "C_Cpp.clang_format_fallbackStyle": "Google",
+  "C_Cpp.clang_format_style": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 160, AlignAfterOpenBracket: Align, AllowShortFunctionsOnASingleLine: None, BinPackArguments: true, BinPackParameters: true, BreakBeforeBraces: Attach}"
 }

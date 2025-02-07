@@ -1,5 +1,6 @@
 #include "config.hpp"
 #include "create_spi.hpp"
+#include "driver/ledc.h"
 #include "esp_log.h"
 #include "esp_task_wdt.h"
 #include "freertos/FreeRTOS.h"
@@ -23,6 +24,41 @@ struct SensorReadRequest {
 
 // キューハンドルを追加
 static QueueHandle_t sensor_queue;
+
+// サーボモータの設定用の定数を追加
+#define LEDC_TIMER LEDC_TIMER_0
+#define LEDC_MODE LEDC_LOW_SPEED_MODE
+#define LEDC_CHANNEL LEDC_CHANNEL_0
+#define LEDC_DUTY_RES LEDC_TIMER_13_BIT  // 13ビット分解能
+#define LEDC_FREQUENCY 50                // 50Hz
+#define SERVO_MIN_PULSEWIDTH 500         // 最小パルス幅（マイクロ秒）
+#define SERVO_MAX_PULSEWIDTH 2500        // 最大パルス幅（マイクロ秒）
+
+// サーボモータの初期化関数を追加
+static void init_servo() {
+    ledc_timer_config_t ledc_timer = {
+        .speed_mode = LEDC_MODE, .duty_resolution = LEDC_DUTY_RES, .timer_num = LEDC_TIMER, .freq_hz = LEDC_FREQUENCY, .clk_cfg = LEDC_AUTO_CLK};
+    ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
+
+    ledc_channel_config_t ledc_channel = {
+        .gpio_num = config::pins.SERVO, .speed_mode = LEDC_MODE, .channel = LEDC_CHANNEL, .timer_sel = LEDC_TIMER, .duty = 0, .hpoint = 0};
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+}
+
+// サーボモータの角度設定関数を追加
+static void set_servo_angle(uint32_t angle) {
+    // 角度を0-180度の範囲に制限
+    if (angle > 180) angle = 180;
+
+    // 角度をパルス幅に変換
+    uint32_t pulse_width = SERVO_MIN_PULSEWIDTH + (((SERVO_MAX_PULSEWIDTH - SERVO_MIN_PULSEWIDTH) * angle) / 180);
+
+    // パルス幅をデューティ比に変換
+    uint32_t duty = (pulse_width * ((1 << LEDC_DUTY_RES) - 1)) / (1000000 / LEDC_FREQUENCY);
+
+    ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, duty));
+    ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
+}
 
 // ログ出力タスク
 void log_task(void *pvParameters) {
@@ -49,6 +85,11 @@ static bool IRAM_ATTR timer_callback(gptimer_handle_t timer, const gptimer_alarm
 // メインの処理タスクを修正
 void liftoff_detection_task(void *pvParameters) {
     ESP_ERROR_CHECK(esp_task_wdt_add(NULL));
+
+    // サーボモータの初期化
+    init_servo();
+    // 初期位置を設定（0度）
+    set_servo_angle(90);
 
     CreateSpi spi;
     Icm20602 icm;
@@ -135,6 +176,10 @@ void liftoff_detection_task(void *pvParameters) {
         }
         esp_task_wdt_reset();
     }
+
+    // 検知後、サーボモータを180度回転
+    ESP_LOGI(TAG, "Liftoff detected! Moving servo...");
+    set_servo_angle(180);
 
     // タイマーを停止
     timer.stop();

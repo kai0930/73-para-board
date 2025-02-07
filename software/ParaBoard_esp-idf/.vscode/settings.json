@@ -1,4 +1,6 @@
 {
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "ms-vscode.cpptools",
   "C_Cpp.intelliSenseEngine": "default",
   "idf.espIdfPathWin": "C:\\Users\\gmh_k\\esp\\v5.4\\esp-idf",
   "idf.openOcdConfigs": [
@@ -22,5 +24,6 @@
     "span": "cpp",
     "text_encoding": "cpp",
     "regex": "cpp"
-  }
+  },
+  "C_Cpp.formatting": "clangFormat"
 }

@@ -65,8 +65,6 @@ class LiftoffAccelTest {
             uint32_t current_time = esp_timer_get_time() / 1000 - start_time;
 
             // ログデータを送信
-            LogData log_data = {.timestamp = current_time, .norm2 = norm2, .count = continuous_count};
-            xQueueSend(log_queue, &log_data, 0);
 
             // 閾値判定
             if (norm2 > THRESHOLD_G2) {
@@ -77,6 +75,9 @@ class LiftoffAccelTest {
             } else {
                 continuous_count = 0;
             }
+
+            LogData log_data = {.timestamp = current_time, .norm2 = norm2, .count = continuous_count};
+            xQueueSend(log_queue, &log_data, 0);
 
             // バッファをクリア
             accel_buffer_x.clear();

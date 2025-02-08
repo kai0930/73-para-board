@@ -7,15 +7,15 @@
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "gptimer.hpp"
+#include "icm20602.hpp"
 #include "lps25hb.hpp"
 #include "servo.hpp"
-#include "test_liftoff_pressure.hpp"
+#include "test_liftoff_accel.hpp"
 
 static const char *TAG = "Main";
 static QueueHandle_t log_queue;
-static Lps25hb *lps_ptr = nullptr;
-
-static LiftoffPressureTest *test_ptr = nullptr;
+static Icm20602 *icm_ptr = nullptr;
+static LiftoffAccelTest *test_ptr = nullptr;
 static Servo *servo_ptr = nullptr;
 
 // データ構造体の定義を追加
@@ -35,7 +35,7 @@ void log_task(void *pvParameters) {
 
     while (1) {
         if (xQueueReceive(log_queue, &log_data, pdMS_TO_TICKS(100))) {
-            ESP_LOGI(LOGTAG, "%lu,%.3f,%d", log_data.timestamp, log_data.pressure, log_data.count);
+            ESP_LOGI(LOGTAG, "%lu,%.3f,%d", log_data.timestamp, log_data.norm2, log_data.count);
         }
         esp_task_wdt_reset();
     }
@@ -53,17 +53,18 @@ void liftoff_detection_task(void *pvParameters) {
     ESP_ERROR_CHECK(esp_task_wdt_add(NULL));
 
     CreateSpi spi;
+    Icm20602 icm;
     Lps25hb lps;
-    LiftoffPressureTest test(log_queue);
+    LiftoffAccelTest test(log_queue);
     Servo servo(config::pins.SERVO);
 
     // グローバルポインタを設定
-    lps_ptr = &lps;
+    icm_ptr = &icm;
     test_ptr = &test;
     servo_ptr = &servo;
 
     // サーボの初期化
-    servo.setAngle(30);
+    servo.setAngle(90);
 
     // SPIの初期化
     if (!spi.begin(SPI2_HOST, config::pins.SCK, config::pins.MISO, config::pins.MOSI)) {
@@ -74,27 +75,39 @@ void liftoff_detection_task(void *pvParameters) {
 
     ESP_LOGI(TAG, "SPI initialized successfully");
 
-    // LPS25HBの初期化
+    // ICM20602の初期化
+    if (!icm.begin(&spi, config::pins.ICMCS)) {
+        ESP_LOGE(TAG, "Failed to initialize ICM20602");
+        vTaskDelete(NULL);
+        return;
+    }
+
+    if (!icm.isInitialized()) {
+        ESP_LOGE(TAG, "Failed to initialize ICM20602");
+        vTaskDelete(NULL);
+        return;
+    }
+
+    // WHO_AM_Iの確認
+    uint8_t who_am_i = icm.whoAmI();
+    ESP_LOGI(TAG, "WHO_AM_I value: 0x%02x (Expected: 0x%02x)", who_am_i, Icm20602Config::WHO_AM_I_VALUE);
+
     if (!lps.begin(&spi, config::pins.LPSCS)) {
         ESP_LOGE(TAG, "Failed to initialize LPS25HB");
         vTaskDelete(NULL);
         return;
     }
 
-    // whoAmIの確認
-    uint8_t who_am_i = lps.whoAmI();
-    ESP_LOGI(TAG, "LPS25HB WHO_AM_I value: 0x%02x", who_am_i);
-
     ESP_LOGI(TAG, "Starting liftoff detection test...");
-    ESP_LOGI(TAG, "Please lift the board to simulate liftoff...");
+    ESP_LOGI(TAG, "Please shake the board to simulate liftoff...");
 
     // センサー読み取り用キューの作成
     sensor_queue = xQueueCreate(1, sizeof(SensorReadRequest));
 
     // タイマーの設定
     GPTimer timer;
-    const uint32_t TIMER_RESOLUTION_HZ = 1000000;           // 1MHz
-    const uint64_t ALARM_COUNT = TIMER_RESOLUTION_HZ / 25;  // 25Hz (10ms)
+    const uint32_t TIMER_RESOLUTION_HZ = 1000000;             // 1MHz
+    const uint64_t ALARM_COUNT = TIMER_RESOLUTION_HZ / 1000;  // 1kHz (1ms)
 
     if (!timer.init(TIMER_RESOLUTION_HZ, ALARM_COUNT)) {
         ESP_LOGE(TAG, "Failed to initialize timer");
@@ -118,17 +131,33 @@ void liftoff_detection_task(void *pvParameters) {
     SensorReadRequest req;
     while (!test.isDetected()) {
         if (xQueueReceive(sensor_queue, &req, 0)) {
+            Icm20602Data data;
             Lps25hbData pressure_data;
 
+            icm.get(&data);
             lps.get(&pressure_data);
-            test.processData(pressure_data.pressure);
+            test.processData(data.accel.x, data.accel.y, data.accel.z);
         }
         esp_task_wdt_reset();
     }
 
+    float liftoff_time = esp_timer_get_time() / 1000;
+
     // 検知後、サーボモータを180度回転
     ESP_LOGI(TAG, "Liftoff detected! Moving servo...");
     servo.setAngle(180);
+
+    // 18秒後にサーボを90度回転
+    bool is_peak_detected = false;
+    while (1) {
+        float current_time = esp_timer_get_time() / 1000;
+        if (current_time - liftoff_time > 18000) {
+            servo.setAngle(90);
+            ESP_LOGI(TAG, "Peak detected!, time: %.3f", current_time - liftoff_time);
+            break;
+        }
+        esp_task_wdt_reset();
+    }
 
     // タイマーを停止
     timer.stop();

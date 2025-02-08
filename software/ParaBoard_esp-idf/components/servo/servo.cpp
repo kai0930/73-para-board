@@ -38,5 +38,5 @@ void Servo::setAngle(uint32_t angle) {
 
     ESP_ERROR_CHECK(ledc_set_duty(MODE, CHANNEL, duty));
     ESP_ERROR_CHECK(ledc_update_duty(MODE, CHANNEL));
-    ESP_LOGI(TAG, "Angle set to %d degrees", angle);
+    ESP_LOGI(TAG, "Angle set to %lu degrees", angle);
 }

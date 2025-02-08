@@ -7,16 +7,15 @@
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "gptimer.hpp"
+#include "icm20602.hpp"
 #include "lps25hb.hpp"
-#include "servo.hpp"
-#include "test_liftoff_pressure.hpp"
+#include "test_liftoff_accel.hpp"
 
 static const char *TAG = "Main";
 static QueueHandle_t log_queue;
+static Icm20602 *icm_ptr = nullptr;
 static Lps25hb *lps_ptr = nullptr;
-
-static LiftoffPressureTest *test_ptr = nullptr;
-static Servo *servo_ptr = nullptr;
+static LiftoffAccelTest *test_ptr = nullptr;
 
 // データ構造体の定義を追加
 struct SensorReadRequest {
@@ -25,6 +24,41 @@ struct SensorReadRequest {
 
 // キューハンドルを追加
 static QueueHandle_t sensor_queue;
+
+// サーボモータの設定用の定数を追加
+#define LEDC_TIMER LEDC_TIMER_0
+#define LEDC_MODE LEDC_LOW_SPEED_MODE
+#define LEDC_CHANNEL LEDC_CHANNEL_0
+#define LEDC_DUTY_RES LEDC_TIMER_13_BIT  // 13ビット分解能
+#define LEDC_FREQUENCY 50                // 50Hz
+#define SERVO_MIN_PULSEWIDTH 500         // 最小パルス幅（マイクロ秒）
+#define SERVO_MAX_PULSEWIDTH 2500        // 最大パルス幅（マイクロ秒）
+
+// サーボモータの初期化関数を追加
+static void init_servo() {
+    ledc_timer_config_t ledc_timer = {
+        .speed_mode = LEDC_MODE, .duty_resolution = LEDC_DUTY_RES, .timer_num = LEDC_TIMER, .freq_hz = LEDC_FREQUENCY, .clk_cfg = LEDC_AUTO_CLK};
+    ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
+
+    ledc_channel_config_t ledc_channel = {
+        .gpio_num = config::pins.SERVO, .speed_mode = LEDC_MODE, .channel = LEDC_CHANNEL, .timer_sel = LEDC_TIMER, .duty = 0, .hpoint = 0};
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+}
+
+// サーボモータの角度設定関数を追加
+static void set_servo_angle(uint32_t angle) {
+    // 角度を0-180度の範囲に制限
+    if (angle > 180) angle = 180;
+
+    // 角度をパルス幅に変換
+    uint32_t pulse_width = SERVO_MIN_PULSEWIDTH + (((SERVO_MAX_PULSEWIDTH - SERVO_MIN_PULSEWIDTH) * angle) / 180);
+
+    // パルス幅をデューティ比に変換
+    uint32_t duty = (pulse_width * ((1 << LEDC_DUTY_RES) - 1)) / (1000000 / LEDC_FREQUENCY);
+
+    ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, duty));
+    ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
+}
 
 // ログ出力タスク
 void log_task(void *pvParameters) {
@@ -35,7 +69,7 @@ void log_task(void *pvParameters) {
 
     while (1) {
         if (xQueueReceive(log_queue, &log_data, pdMS_TO_TICKS(100))) {
-            ESP_LOGI(LOGTAG, "%lu,%.3f,%d", log_data.timestamp, log_data.pressure, log_data.count);
+            ESP_LOGI(LOGTAG, "%lu,%.3f,%d", log_data.timestamp, log_data.norm2, log_data.count);
         }
         esp_task_wdt_reset();
     }
@@ -52,18 +86,20 @@ static bool IRAM_ATTR timer_callback(gptimer_handle_t timer, const gptimer_alarm
 void liftoff_detection_task(void *pvParameters) {
     ESP_ERROR_CHECK(esp_task_wdt_add(NULL));
 
+    // サーボモータの初期化
+    init_servo();
+    // 初期位置を設定（0度）
+    set_servo_angle(90);
+
     CreateSpi spi;
+    Icm20602 icm;
     Lps25hb lps;
-    LiftoffPressureTest test(log_queue);
-    Servo servo(config::pins.SERVO);
+    LiftoffAccelTest test(log_queue);
 
     // グローバルポインタを設定
+    icm_ptr = &icm;
     lps_ptr = &lps;
     test_ptr = &test;
-    servo_ptr = &servo;
-
-    // サーボの初期化
-    servo.setAngle(30);
 
     // SPIの初期化
     if (!spi.begin(SPI2_HOST, config::pins.SCK, config::pins.MISO, config::pins.MOSI)) {
@@ -74,6 +110,23 @@ void liftoff_detection_task(void *pvParameters) {
 
     ESP_LOGI(TAG, "SPI initialized successfully");
 
+    // ICM20602の初期化
+    if (!icm.begin(&spi, config::pins.ICMCS)) {
+        ESP_LOGE(TAG, "Failed to initialize ICM20602");
+        vTaskDelete(NULL);
+        return;
+    }
+
+    if (!icm.isInitialized()) {
+        ESP_LOGE(TAG, "Failed to initialize ICM20602");
+        vTaskDelete(NULL);
+        return;
+    }
+
+    // WHO_AM_Iの確認
+    uint8_t who_am_i = icm.whoAmI();
+    ESP_LOGI(TAG, "WHO_AM_I value: 0x%02x (Expected: 0x%02x)", who_am_i, Icm20602Config::WHO_AM_I_VALUE);
+
     // LPS25HBの初期化
     if (!lps.begin(&spi, config::pins.LPSCS)) {
         ESP_LOGE(TAG, "Failed to initialize LPS25HB");
@@ -81,20 +134,16 @@ void liftoff_detection_task(void *pvParameters) {
         return;
     }
 
-    // whoAmIの確認
-    uint8_t who_am_i = lps.whoAmI();
-    ESP_LOGI(TAG, "LPS25HB WHO_AM_I value: 0x%02x", who_am_i);
-
     ESP_LOGI(TAG, "Starting liftoff detection test...");
-    ESP_LOGI(TAG, "Please lift the board to simulate liftoff...");
+    ESP_LOGI(TAG, "Please shake the board to simulate liftoff...");
 
     // センサー読み取り用キューの作成
     sensor_queue = xQueueCreate(1, sizeof(SensorReadRequest));
 
     // タイマーの設定
     GPTimer timer;
-    const uint32_t TIMER_RESOLUTION_HZ = 1000000;           // 1MHz
-    const uint64_t ALARM_COUNT = TIMER_RESOLUTION_HZ / 25;  // 25Hz (10ms)
+    const uint32_t TIMER_RESOLUTION_HZ = 1000000;             // 1MHz
+    const uint64_t ALARM_COUNT = TIMER_RESOLUTION_HZ / 1000;  // 1kHz (1ms)
 
     if (!timer.init(TIMER_RESOLUTION_HZ, ALARM_COUNT)) {
         ESP_LOGE(TAG, "Failed to initialize timer");
@@ -118,17 +167,19 @@ void liftoff_detection_task(void *pvParameters) {
     SensorReadRequest req;
     while (!test.isDetected()) {
         if (xQueueReceive(sensor_queue, &req, 0)) {
+            Icm20602Data data;
             Lps25hbData pressure_data;
 
+            icm.get(&data);
             lps.get(&pressure_data);
-            test.processData(pressure_data.pressure);
+            test.processData(data.accel.x, data.accel.y, data.accel.z);
         }
         esp_task_wdt_reset();
     }
 
     // 検知後、サーボモータを180度回転
     ESP_LOGI(TAG, "Liftoff detected! Moving servo...");
-    servo.setAngle(180);
+    set_servo_angle(180);
 
     // タイマーを停止
     timer.stop();

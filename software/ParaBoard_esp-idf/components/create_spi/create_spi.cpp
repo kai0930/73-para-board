@@ -19,9 +19,7 @@ bool CreateSpi::begin(spi_host_device_t host_id, int8_t sck, int8_t miso, int8_t
 
     host = host_id == SPI2_HOST ? SPI2_HOST : SPI3_HOST;
 
-    spi_dma_chan_t dma_chan = host == SPI2_HOST ? 2 : 1;
-
-    esp_err_t err = spi_bus_initialize(host, &bus_cfg, dma_chan);
+    esp_err_t err = spi_bus_initialize(host, &bus_cfg, SPI_DMA_CH_AUTO);
 
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "SPI bus initialization failed: %d", err);
@@ -130,14 +128,6 @@ void CreateSpi::transmit(spi_transaction_t *transaction, int device_handle_id) {
         ESP_LOGE(TAG, "SPI device transmit failed: %d", err);
     }
     gpio_set_level(CS_pins[device_handle_id], 1);
-}
-
-void CreateSpi::csSet(spi_transaction_t *transaction) {
-    gpio_set_level(static_cast<gpio_num_t>(reinterpret_cast<intptr_t>(transaction->user)), 1);
-}
-
-void CreateSpi::csReset(spi_transaction_t *transaction) {
-    gpio_set_level(static_cast<gpio_num_t>(reinterpret_cast<intptr_t>(transaction->user)), 0);
 }
 
 void CreateSpi::pollTransmit(spi_transaction_t *transaction, int device_handle_id) {

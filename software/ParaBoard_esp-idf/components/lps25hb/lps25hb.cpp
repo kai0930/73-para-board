@@ -21,8 +21,6 @@ IRAM_ATTR bool Lps25hb::begin(CreateSpi *spi, gpio_num_t cs_pin, uint32_t freque
     device_if_config.mode = 3;
     device_if_config.queue_size = 1;
     device_if_config.spics_io_num = cs_pin;
-    device_if_config.pre_cb = create_spi->csReset;
-    device_if_config.post_cb = create_spi->csSet;
 
     device_handle_id = create_spi->addDevice(&device_if_config, cs_pin);
     if (device_handle_id < 0) {

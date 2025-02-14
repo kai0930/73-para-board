@@ -1,8 +1,8 @@
-#include "icm20602.hpp"
+#include "icm42688.hpp"
 
-const char *Icm20602::TAG = "Icm20602";
+const char *Icm42688::TAG = "Icm42688";
 
-IRAM_ATTR bool Icm20602::begin(CreateSpi *spi, gpio_num_t cs_pin, uint32_t frequency) {
+IRAM_ATTR bool Icm42688::begin(CreateSpi *spi, gpio_num_t cs_pin, uint32_t frequency) {
     create_spi = spi;
     this->cs_pin = cs_pin;
 
@@ -32,40 +32,40 @@ IRAM_ATTR bool Icm20602::begin(CreateSpi *spi, gpio_num_t cs_pin, uint32_t frequ
     ESP_LOGI(TAG, "Device added, handle_id: %d", device_handle_id);
 
     // I2Cインターフェースを無効化
-    create_spi->setReg(Icm20602Config::Registers::I2C_IF, 0x40, device_handle_id);
+    create_spi->setReg(Icm42688Config::Registers::I2C_IF, 0x40, device_handle_id);
     // センサーの基本設定
-    create_spi->setReg(Icm20602Config::Registers::CONFIG, 0x00, device_handle_id);
-    create_spi->setReg(Icm20602Config::Registers::PWR_MGMT_1, 0x80, device_handle_id);
+    create_spi->setReg(Icm42688Config::Registers::CONFIG, 0x00, device_handle_id);
+    create_spi->setReg(Icm42688Config::Registers::PWR_MGMT_1, 0x80, device_handle_id);
     vTaskDelay(pdMS_TO_TICKS(100));  // リセット待機
 
     // クロックソースの設定
-    create_spi->setReg(Icm20602Config::Registers::PWR_MGMT_1, 0x01, device_handle_id);
+    create_spi->setReg(Icm42688Config::Registers::PWR_MGMT_1, 0x01, device_handle_id);
 
     // 加速度センサーとジャイロの設定を追加
-    create_spi->setReg(Icm20602Config::Registers::ACC_CONFIG, Icm20602Config::AccelScale::G16, device_handle_id);
-    create_spi->setReg(Icm20602Config::Registers::GYRO_CONFIG, Icm20602Config::GyroScale::DPS2000, device_handle_id);
+    create_spi->setReg(Icm42688Config::Registers::ACC_CONFIG, Icm42688Config::AccelScale::G16, device_handle_id);
+    create_spi->setReg(Icm42688Config::Registers::GYRO_CONFIG, Icm42688Config::GyroScale::DPS2000, device_handle_id);
 
     // レジスタ設定の確認
     uint8_t who_am_i = whoAmI();
     ESP_LOGI(TAG, "WHO_AM_I: 0x%02x", who_am_i);
-    if (who_am_i != Icm20602Config::WHO_AM_I_VALUE) {  // ICM20602の場合
+    if (who_am_i != Icm42688Config::WHO_AM_I_VALUE) {  // ICM42688の場合
         ESP_LOGE(TAG, "Invalid WHO_AM_I value");
         return false;
     }
     return true;
 }
 
-IRAM_ATTR uint8_t Icm20602::whoAmI() {
-    return create_spi->readByte(0x80 | Icm20602Config::Registers::WHO_AM_I, device_handle_id);
+IRAM_ATTR uint8_t Icm42688::whoAmI() {
+    return create_spi->readByte(0x80 | Icm42688Config::Registers::WHO_AM_I, device_handle_id);
 }
 
-IRAM_ATTR void Icm20602::get(Icm20602Data *data) {
+IRAM_ATTR void Icm42688::get(Icm42688Data *data) {
     spi_transaction_t transaction = {};
     transaction.flags = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
     transaction.length = (14) * 8;
 
     uint8_t rx_buffer[14];
-    transaction.cmd = 0x80 | Icm20602Config::Registers::DATA;
+    transaction.cmd = 0x80 | Icm42688Config::Registers::DATA;
     transaction.tx_buffer = nullptr;
     transaction.rx_buffer = rx_buffer;
     transaction.user = (void *)cs_pin;

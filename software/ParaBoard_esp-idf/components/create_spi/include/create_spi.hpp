@@ -87,18 +87,6 @@ class CreateSpi {
      */
     void pollTransmit(spi_transaction_t *transaction, int device_handle_id);
 
-    /**
-     * @brief Set the CS pin
-     * @param transaction The transaction to set the CS pin
-     */
-    static void csSet(spi_transaction_t *transaction);
-
-    /**
-     * @brief Reset the CS pin
-     * @param transaction The transaction to reset the CS pin
-     */
-    static void csReset(spi_transaction_t *transaction);
-
    private:
     static const char *TAG;
     spi_bus_config_t bus_cfg = {};

@@ -54,38 +54,42 @@ class CreateSpi {
      * @brief Read a byte from the device
      * @param addr The address to read from
      * @param device_handle_id The handle id for the device
-     * @return The byte read from the device
+     * @param data The data to read from the device
+     * @return true if the data was read, false otherwise
      */
-    uint8_t readByte(uint8_t addr, int device_handle_id);
+    bool readByte(uint8_t addr, int device_handle_id, uint8_t *data);
 
     /**
      * @brief Send a byte to the device
      * @param data The data to send
      * @param device_handle_id The handle id for the device
+     * @return true if the data was sent, false otherwise
      */
-    void sendData(uint8_t data, int device_handle_id);
+    bool sendData(uint8_t data, int device_handle_id);
 
     /**
      * @brief Set a register on the device
      * @param addr The address to set
      * @param data The data to set
      * @param device_handle_id The handle id for the device
+     * @return true if the register was set, false otherwise
      */
-    void setReg(uint8_t addr, uint8_t data, int device_handle_id);
+    bool setReg(uint8_t addr, uint8_t data, int device_handle_id);
 
     /**
      * @brief Transmit data to the device
      * @param transaction The transaction to transmit
      * @param device_handle_id The handle id for the device
+     * @return true if the transaction was successful, false otherwise
      */
-    void transmit(spi_transaction_t *transaction, int device_handle_id);
+    bool transmit(spi_transaction_t *transaction, int device_handle_id);
 
     /**
      * @brief Poll transmit data to the device
      * @param transaction The transaction to transmit
      * @param device_handle_id The handle id for the device
      */
-    void pollTransmit(spi_transaction_t *transaction, int device_handle_id);
+    bool pollTransmit(spi_transaction_t *transaction, int device_handle_id);
 
    private:
     static const char *TAG;

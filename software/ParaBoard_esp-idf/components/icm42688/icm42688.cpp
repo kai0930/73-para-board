@@ -1,12 +1,13 @@
 #include "icm42688.hpp"
 
+namespace Icm {
+
 const char *Icm42688::TAG = "Icm42688";
 
-IRAM_ATTR bool Icm42688::begin(CreateSpi *spi, gpio_num_t cs_pin, uint32_t frequency) {
+bool Icm42688::begin(CreateSpi *spi, gpio_num_t cs_pin, uint32_t frequency) {
     create_spi = spi;
     this->cs_pin = cs_pin;
 
-    // デバイスハンドルのチェックを追加
     if (!create_spi) {
         ESP_LOGE(TAG, "SPI instance is null");
         return false;
@@ -14,75 +15,183 @@ IRAM_ATTR bool Icm42688::begin(CreateSpi *spi, gpio_num_t cs_pin, uint32_t frequ
 
     spi_device_interface_config_t device_if_config = {};
 
-    device_if_config.pre_cb = nullptr;
-    device_if_config.post_cb = nullptr;
     device_if_config.cs_ena_pretrans = 0;
     device_if_config.cs_ena_posttrans = 0;
     device_if_config.clock_speed_hz = frequency;
     device_if_config.mode = 3;
     device_if_config.queue_size = 1;
-    device_if_config.spics_io_num = cs_pin;
 
     device_handle_id = create_spi->addDevice(&device_if_config, cs_pin);
-    ESP_LOGI(TAG, "Device added, handle_id: %d", device_handle_id);
     if (device_handle_id < 0) {
         ESP_LOGE(TAG, "Failed to add device");
         return false;
     }
     ESP_LOGI(TAG, "Device added, handle_id: %d", device_handle_id);
 
-    // I2Cインターフェースを無効化
-    create_spi->setReg(Icm42688Config::Registers::I2C_IF, 0x40, device_handle_id);
-    // センサーの基本設定
-    create_spi->setReg(Icm42688Config::Registers::CONFIG, 0x00, device_handle_id);
-    create_spi->setReg(Icm42688Config::Registers::PWR_MGMT_1, 0x80, device_handle_id);
-    vTaskDelay(pdMS_TO_TICKS(100));  // リセット待機
+    // 1. gyroとaccelセンサーをOFF
+    if (!create_spi->setReg(Icm42688Config::Registers::PWR_MGMT0, 0x00, device_handle_id)) {
+        ESP_LOGE(TAG, "Failed to set PWR_MGMT0");
+        return false;
+    }
+    esp_rom_delay_us(200);  // 200us間はレジスタ変更禁止
 
-    // クロックソースの設定
-    create_spi->setReg(Icm42688Config::Registers::PWR_MGMT_1, 0x01, device_handle_id);
+    // 2. Gyroセンサーの設定
+    if (!create_spi->setReg(Icm42688Config::Registers::GYRO_CONFIG0, Icm42688Config::GyroScale::DPS2000 | Icm42688Config::ODR::ODR1k, device_handle_id)) {
+        ESP_LOGE(TAG, "Failed to set GYRO_CONFIG0");
+        return false;
+    }
 
-    // 加速度センサーとジャイロの設定を追加
-    create_spi->setReg(Icm42688Config::Registers::ACC_CONFIG, Icm42688Config::AccelScale::G16, device_handle_id);
-    create_spi->setReg(Icm42688Config::Registers::GYRO_CONFIG, Icm42688Config::GyroScale::DPS2000, device_handle_id);
+    // 3. Accelセンサーの設定
+    if (!create_spi->setReg(Icm42688Config::Registers::ACCEL_CONFIG0, Icm42688Config::AccelScale::G16 | Icm42688Config::ODR::ODR1k, device_handle_id)) {
+        ESP_LOGE(TAG, "Failed to set ACCEL_CONFIG0");
+        return false;
+    }
 
-    // レジスタ設定の確認
-    uint8_t who_am_i = whoAmI();
+    // 4. センサーをLNモードでON
+    if (!create_spi->setReg(Icm42688Config::Registers::PWR_MGMT0, 0x0F, device_handle_id)) {
+        ESP_LOGE(TAG, "Failed to set PWR_MGMT0");
+        return false;
+    }
+
+    // whoAmIを確認
+    uint8_t who_am_i;
+    if (!whoAmI(&who_am_i)) {
+        ESP_LOGE(TAG, "Failed to get WHO_AM_I");
+        return false;
+    }
+    if (who_am_i != Icm42688Config::WHO_AM_I_VALUE) {
+        ESP_LOGE(TAG, "Invalid WHO_AM_I value: 0x%02x (expected 0x%02x)", who_am_i, Icm42688Config::WHO_AM_I_VALUE);
+        return false;
+    }
     ESP_LOGI(TAG, "WHO_AM_I: 0x%02x", who_am_i);
-    if (who_am_i != Icm42688Config::WHO_AM_I_VALUE) {  // ICM42688の場合
-        ESP_LOGE(TAG, "Invalid WHO_AM_I value");
+    return true;
+}
+
+bool Icm42688::whoAmI(uint8_t *data) {
+    if (!create_spi->readByte(Icm42688Config::READ_BIT | Icm42688Config::Registers::WHO_AM_I, device_handle_id, data)) {
+        ESP_LOGE(TAG, "Failed to read WHO_AM_I");
         return false;
     }
     return true;
 }
 
-IRAM_ATTR uint8_t Icm42688::whoAmI() {
-    return create_spi->readByte(0x80 | Icm42688Config::Registers::WHO_AM_I, device_handle_id);
-}
-
-IRAM_ATTR void Icm42688::get(Icm42688Data *data) {
+bool Icm42688::getAccel(AccelData *data) {
     spi_transaction_t transaction = {};
     transaction.flags = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
-    transaction.length = (14) * 8;
+    transaction.length = (6) * 8;
 
-    uint8_t rx_buffer[14];
-    transaction.cmd = 0x80 | Icm42688Config::Registers::DATA;
-    transaction.tx_buffer = nullptr;
+    uint8_t rx_buffer[6];
+    transaction.cmd = Icm42688Config::READ_BIT | Icm42688Config::Registers::ACCEL_DATA;
+    transaction.tx_buffer = NULL;
     transaction.rx_buffer = rx_buffer;
     transaction.user = (void *)cs_pin;
 
     spi_transaction_ext_t spi_transaction = {};
     spi_transaction.base = transaction;
     spi_transaction.command_bits = 8;
-    create_spi->pollTransmit((spi_transaction_t *)&spi_transaction, device_handle_id);
+    bool result = create_spi->pollTransmit((spi_transaction_t *)&spi_transaction, device_handle_id);
+    if (!result) {
+        ESP_LOGE(TAG, "Failed to get accel");
+        return false;
+    }
 
-    // 生データを物理単位に変換して格納
-    data->accel.x = (int16_t)(rx_buffer[0] << 8 | rx_buffer[1]) / 2048.0f;  // G単位
-    data->accel.y = (int16_t)(rx_buffer[2] << 8 | rx_buffer[3]) / 2048.0f;
-    data->accel.z = (int16_t)(rx_buffer[4] << 8 | rx_buffer[5]) / 2048.0f;
-
-    data->gyro.x = (int16_t)(rx_buffer[8] << 8 | rx_buffer[9]) / 16.4f;  // dps単位
-    data->gyro.y = (int16_t)(rx_buffer[10] << 8 | rx_buffer[11]) / 16.4f;
-    data->gyro.z = (int16_t)(rx_buffer[12] << 8 | rx_buffer[13]) / 16.4f;
-
-    data->accel_norm = sqrt(data->accel.x * data->accel.x + data->accel.y * data->accel.y + data->accel.z * data->accel.z);
+    data->u_x = rx_buffer[0];
+    data->d_x = rx_buffer[1];
+    data->u_y = rx_buffer[2];
+    data->d_y = rx_buffer[3];
+    data->u_z = rx_buffer[4];
+    data->d_z = rx_buffer[5];
+    return true;
 }
+
+bool Icm42688::getGyro(GyroData *data) {
+    spi_transaction_t transaction = {};
+    transaction.flags = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
+    transaction.length = (6) * 8;
+
+    uint8_t rx_buffer[6];
+    transaction.cmd = Icm42688Config::READ_BIT | Icm42688Config::Registers::GYRO_DATA;
+    transaction.tx_buffer = NULL;
+    transaction.rx_buffer = rx_buffer;
+    transaction.user = (void *)cs_pin;
+
+    spi_transaction_ext_t spi_transaction = {};
+    spi_transaction.base = transaction;
+    spi_transaction.command_bits = 8;
+    bool result = create_spi->pollTransmit((spi_transaction_t *)&spi_transaction, device_handle_id);
+    if (!result) {
+        ESP_LOGE(TAG, "Failed to get gyro");
+        return false;
+    }
+
+    data->u_x = rx_buffer[0];
+    data->d_x = rx_buffer[1];
+    data->u_y = rx_buffer[2];
+    data->d_y = rx_buffer[3];
+    data->u_z = rx_buffer[4];
+    data->d_z = rx_buffer[5];
+    return true;
+}
+
+bool Icm42688::getTemp(TempData *data) {
+    spi_transaction_t transaction = {};
+    transaction.flags = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
+    transaction.length = (2) * 8;
+
+    uint8_t rx_buffer[2];
+    transaction.cmd = Icm42688Config::READ_BIT | Icm42688Config::Registers::TEMP_DATA;
+    transaction.tx_buffer = NULL;
+    transaction.rx_buffer = rx_buffer;
+    transaction.user = (void *)cs_pin;
+
+    spi_transaction_ext_t spi_transaction = {};
+    spi_transaction.base = transaction;
+    spi_transaction.command_bits = 8;
+    bool result = create_spi->pollTransmit((spi_transaction_t *)&spi_transaction, device_handle_id);
+    if (!result) {
+        ESP_LOGE(TAG, "Failed to get temp");
+        return false;
+    }
+
+    data->u_t = rx_buffer[0];
+    data->d_t = rx_buffer[1];
+    return true;
+}
+
+bool Icm42688::getAccelAndGyro(AccelData *accel, GyroData *gyro) {
+    spi_transaction_t transaction = {};
+    transaction.flags = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
+    transaction.length = (6 + 6) * 8;
+
+    uint8_t rx_buffer[12];
+    transaction.cmd = Icm42688Config::READ_BIT | Icm42688Config::Registers::ACCEL_DATA;
+    transaction.tx_buffer = NULL;
+    transaction.rx_buffer = rx_buffer;
+    transaction.user = (void *)cs_pin;
+
+    spi_transaction_ext_t spi_transaction = {};
+    spi_transaction.base = transaction;
+    spi_transaction.command_bits = 8;
+    bool result = create_spi->pollTransmit((spi_transaction_t *)&spi_transaction, device_handle_id);
+    if (!result) {
+        ESP_LOGE(TAG, "Failed to get accel and gyro");
+        return false;
+    }
+
+    accel->u_x = rx_buffer[0];
+    accel->d_x = rx_buffer[1];
+    accel->u_y = rx_buffer[2];
+    accel->d_y = rx_buffer[3];
+    accel->u_z = rx_buffer[4];
+    accel->d_z = rx_buffer[5];
+
+    gyro->u_x = rx_buffer[6];
+    gyro->d_x = rx_buffer[7];
+    gyro->u_y = rx_buffer[8];
+    gyro->d_y = rx_buffer[9];
+    gyro->u_z = rx_buffer[10];
+    gyro->d_z = rx_buffer[11];
+    return true;
+}
+
+}  // namespace Icm

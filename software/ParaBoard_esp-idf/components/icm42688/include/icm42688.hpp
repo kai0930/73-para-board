@@ -4,47 +4,70 @@
 #include "driver/spi_master.h"
 #include "math.h"
 
+namespace Icm {
+
 struct Icm42688Config {
     static constexpr uint8_t WHO_AM_I_VALUE = 0x47;        // 期待される値
     static constexpr uint32_t DEFAULT_SPI_FREQ = 8000000;  // 8MHz
     static constexpr uint8_t READ_BIT = 0x80;              // 読み取り時の最上位ビット
 
     struct Registers {
-        static constexpr uint8_t CONFIG = 0x1A;
-        static constexpr uint8_t PWR_MGMT_1 = 0x6B;
-        static constexpr uint8_t GYRO_CONFIG = 0x1B;
-        static constexpr uint8_t ACC_CONFIG = 0x1C;
+        static constexpr uint8_t PWR_MGMT0 = 0x4E;
         static constexpr uint8_t WHO_AM_I = 0x75;
-        static constexpr uint8_t DATA = 0x3B;
-        static constexpr uint8_t I2C_IF = 0x70;
-        static constexpr uint8_t FIFO_EN = 0x23;            // FIFOの設定
-        static constexpr uint8_t INT_ENABLE = 0x38;         // 割り込み設定
-        static constexpr uint8_t SIGNAL_PATH_RESET = 0x68;  // リセット用
-    };
-
-    struct AccelScale {
-        static constexpr uint8_t G16 = 0b00011000;
-        static constexpr uint8_t G8 = 0b00010000;
-        static constexpr uint8_t G4 = 0b00001000;
-        static constexpr uint8_t G2 = 0b00000000;
+        static constexpr uint8_t TEMP_DATA = 0x1D;
+        static constexpr uint8_t ACCEL_DATA = 0x1F;
+        static constexpr uint8_t GYRO_DATA = 0x25;
+        static constexpr uint8_t GYRO_CONFIG0 = 0x4F;
+        static constexpr uint8_t ACCEL_CONFIG0 = 0x50;
     };
 
     struct GyroScale {
-        static constexpr uint8_t DPS2000 = 0b00011000;
-        static constexpr uint8_t DPS1000 = 0b00010000;
-        static constexpr uint8_t DPS500 = 0b00001000;
-        static constexpr uint8_t DPS250 = 0b00000000;
+        static constexpr uint8_t DPS2000 = 0b00000000;
+        static constexpr uint8_t DPS1000 = 0b00100000;
+        static constexpr uint8_t DPS500 = 0b01000000;
+        static constexpr uint8_t DPS250 = 0b01100000;
+        static constexpr uint8_t DPS125 = 0b10000000;
+        static constexpr uint8_t DPS62_5 = 0b10100000;
+        static constexpr uint8_t DPS31_25 = 0b11000000;
+        static constexpr uint8_t DPS15_625 = 0b11100000;
+    };
+
+    struct AccelScale {
+        static constexpr uint8_t G16 = 0b00000000;
+        static constexpr uint8_t G8 = 0b00100000;
+        static constexpr uint8_t G4 = 0b01000000;
+        static constexpr uint8_t G2 = 0b01100000;
+    };
+
+    struct ODR {
+        static constexpr uint8_t ODR32k = 0b00000001;     // LN mode
+        static constexpr uint8_t ODR16k = 0b00000010;     // LN mode
+        static constexpr uint8_t ODR8k = 0b00000011;      // LN mode
+        static constexpr uint8_t ODR4k = 0b00000100;      // LN mode
+        static constexpr uint8_t ODR2k = 0b00000101;      // LN mode
+        static constexpr uint8_t ODR1k = 0b00000110;      // LN mode
+        static constexpr uint8_t ODR200 = 0b00000111;     // LN or LP mode
+        static constexpr uint8_t ODR100 = 0b00001000;     // LN or LP mode
+        static constexpr uint8_t ODR50 = 0b00001001;      // LN or LP mode
+        static constexpr uint8_t ODR25 = 0b00001010;      // LN or LP mode
+        static constexpr uint8_t ODR12_5 = 0b00001011;    // LN or LP mode
+        static constexpr uint8_t ODR6_25 = 0b00001100;    // LP mode
+        static constexpr uint8_t ODR3_125 = 0b00001101;   // LP mode
+        static constexpr uint8_t ODR1_5625 = 0b00001110;  // LP mode
+        static constexpr uint8_t ODR500 = 0b00001111;     // LN or LP mode
     };
 };
 
-struct Icm42688Data {
-    struct Vector3D {
-        float x, y, z;  // 変換後の値を格納するためfloatに変更
-    };
+struct AccelData {
+    uint8_t u_x, d_x, u_y, d_y, u_z, d_z;
+};
 
-    Vector3D accel;    // G単位
-    Vector3D gyro;     // dps単位
-    float accel_norm;  // G単位
+struct GyroData {
+    uint8_t u_x, d_x, u_y, d_y, u_z, d_z;
+};
+
+struct TempData {
+    uint8_t u_t, d_t;
 };
 
 class Icm42688 {
@@ -55,17 +78,17 @@ class Icm42688 {
     static const char *TAG;
 
    public:
-    // IRAM_ATTR属性の追加
-    IRAM_ATTR bool begin(CreateSpi *create_spi, gpio_num_t cs_pin, uint32_t frequency = 8000000);
-    IRAM_ATTR uint8_t whoAmI();
-    IRAM_ATTR void get(Icm42688Data *data);
+    bool begin(CreateSpi *create_spi, gpio_num_t cs_pin, uint32_t frequency = Icm42688Config::DEFAULT_SPI_FREQ);
+    bool whoAmI(uint8_t *data);
+    bool getAccel(AccelData *data);
+    bool getGyro(GyroData *data);
+    bool getTemp(TempData *data);
+    bool getAccelAndGyro(AccelData *accel, GyroData *gyro);
 
     // エラー状態の管理を追加
     bool isInitialized() const {
         return device_handle_id >= 0;
     }
-
-    // スケール設定用のメソッドを追加
-    void setAccelScale(uint8_t scale);
-    void setGyroScale(uint8_t scale);
 };
+
+}  // namespace Icm

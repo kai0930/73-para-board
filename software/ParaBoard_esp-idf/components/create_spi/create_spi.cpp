@@ -49,16 +49,7 @@ int CreateSpi::addDevice(spi_device_interface_config_t *device_if_cfg, gpio_num_
         return -1;
     }
 
-    gpio_config_t gpio_cfg = {};
-
-    gpio_cfg.pin_bit_mask = (1ULL << cs);
-    gpio_cfg.mode = GPIO_MODE_OUTPUT;
-    gpio_cfg.pull_up_en = GPIO_PULLUP_DISABLE;
-    gpio_cfg.pull_down_en = GPIO_PULLDOWN_DISABLE;
-    gpio_cfg.intr_type = GPIO_INTR_DISABLE;
-
-    gpio_config(&gpio_cfg);
-    gpio_set_level(cs, 1);
+    device_if_cfg->spics_io_num = cs;
 
     spi_device_handle_t device_handle;
     esp_err_t err = spi_bus_add_device(host, device_if_cfg, &device_handle);
@@ -90,50 +81,54 @@ bool CreateSpi::rmDevice(int device_handle_id) {
     return true;
 }
 
-void CreateSpi::sendData(uint8_t data, int device_handle_id) {
+bool CreateSpi::sendData(uint8_t data, int device_handle_id) {
     spi_transaction_t transaction = {};
     transaction.flags = SPI_TRANS_USE_TXDATA;
     transaction.length = 8;
     transaction.user = (void *)(intptr_t)CS_pins[device_handle_id];
     transaction.tx_data[0] = data;
 
-    pollTransmit(&transaction, device_handle_id);
+    return pollTransmit(&transaction, device_handle_id);
 }
 
-uint8_t CreateSpi::readByte(uint8_t addr, int device_handle_id) {
+bool CreateSpi::readByte(uint8_t addr, int device_handle_id, uint8_t *data) {
     spi_transaction_t transaction = {};
     transaction.flags = SPI_TRANS_USE_RXDATA | SPI_TRANS_USE_TXDATA;
-    transaction.length = 16;
-    transaction.user = (void *)(intptr_t)CS_pins[device_handle_id];
     transaction.tx_data[0] = addr;
+    transaction.length = 16;
 
-    pollTransmit(&transaction, device_handle_id);
-    return transaction.rx_data[1];
+    if (!pollTransmit(&transaction, device_handle_id)) {
+        return false;
+    }
+
+    *data = transaction.rx_data[1];
+    return true;
 }
 
-void CreateSpi::setReg(uint8_t addr, uint8_t data, int device_handle_id) {
+bool CreateSpi::setReg(uint8_t addr, uint8_t data, int device_handle_id) {
     spi_transaction_t transaction = {};
     transaction.flags = SPI_TRANS_USE_TXDATA;
     transaction.length = 16;
     transaction.tx_data[0] = addr;
     transaction.tx_data[1] = data;
 
-    transmit(&transaction, device_handle_id);
+    return transmit(&transaction, device_handle_id);
 }
 
-void CreateSpi::transmit(spi_transaction_t *transaction, int device_handle_id) {
-    gpio_set_level(CS_pins[device_handle_id], 0);
+bool CreateSpi::transmit(spi_transaction_t *transaction, int device_handle_id) {
     esp_err_t err = spi_device_transmit(devices[device_handle_id], transaction);
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "SPI device transmit failed: %d", err);
+        return false;
     }
-    gpio_set_level(CS_pins[device_handle_id], 1);
+    return true;
 }
 
-void CreateSpi::pollTransmit(spi_transaction_t *transaction, int device_handle_id) {
+bool CreateSpi::pollTransmit(spi_transaction_t *transaction, int device_handle_id) {
     esp_err_t err = spi_device_polling_transmit(devices[device_handle_id], transaction);
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "SPI device polling transmit failed: %d", err);
+        return false;
     }
-    return;
+    return true;
 }

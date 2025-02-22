@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EC20CB20-68C9-3B31-A7BE-E12CA298AD36}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\bin\cmake.exe -SC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf -BC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build --check-stamp-file C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\.git\HEAD;C:\Users\gmh_k\Documents\Create\73-para-board\.git\refs\heads\develop;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeASMCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\git-data\grabRef.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\bootloader-prefix\tmp\bootloader-mkdirs.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.h;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args.in;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\sdkconfig;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeASMInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-ASM.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-C.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-CXX.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindGit.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Platform\Generic.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bootloader\subproject\components\micro-ecc\micro-ecc\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c3_family\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\esp_ble_mesh\lib\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\host\nimble\nimble\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\cmock\CMock\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_coex\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_phy\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_wifi\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\heap\tlsf\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\json\cJSON\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\lwip\lwip\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mbedtls\mbedtls\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mqtt\esp-mqtt\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\openthread\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\protobuf-c\protobuf-c\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\spiffs\spiffs\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\unity\unity\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\components\app_trace\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\subproject\components\micro-ecc\micro-ecc\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c3_family\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\esp_ble_mesh\lib\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\host\nimble\nimble\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\cmock\CMock\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_coex\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_common\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_phy\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_psram\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_wifi\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\espefuse.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\fatfs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\heap\tlsf\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\json\cJSON\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\lwip\lwip\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mbedtls\mbedtls\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mqtt\esp-mqtt\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\newlib\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\nvs_flash\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\openthread\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\partitions_singleapp.csv;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\protobuf-c\protobuf-c\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\spiffs\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\ulp\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\unity\unity\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\xtensa\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\build.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\component.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\depgraph.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\dfu.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\git_submodules.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\idf.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\kconfig.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\ldgen.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\prefix_map.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project_description.json.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\targets.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\tool_version_check.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\toolchain-esp32s3.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\utilities.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\version.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\confgen.py;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\config.env.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\bin\cmake.exe -SC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf -BC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build --check-stamp-file C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\.git\HEAD;C:\Users\gmh_k\Documents\Create\73-para-board\.git\refs\heads\develop;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeASMCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\git-data\grabRef.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\bootloader-prefix\tmp\bootloader-mkdirs.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.h;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args.in;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\sdkconfig;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeASMInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-ASM.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-C.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-CXX.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindGit.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Platform\Generic.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bootloader\subproject\components\micro-ecc\micro-ecc\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c3_family\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\esp_ble_mesh\lib\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\host\nimble\nimble\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\cmock\CMock\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_coex\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_phy\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_wifi\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\heap\tlsf\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\json\cJSON\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\lwip\lwip\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mbedtls\mbedtls\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mqtt\esp-mqtt\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\openthread\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\protobuf-c\protobuf-c\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\spiffs\spiffs\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\unity\unity\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\components\app_trace\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\subproject\components\micro-ecc\micro-ecc\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c3_family\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\esp_ble_mesh\lib\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\host\nimble\nimble\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\cmock\CMock\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_coex\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_common\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_phy\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_psram\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_wifi\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\espefuse.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\fatfs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\heap\tlsf\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\json\cJSON\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\lwip\lwip\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mbedtls\mbedtls\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mqtt\esp-mqtt\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\newlib\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\nvs_flash\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\openthread\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\partitions_singleapp.csv;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\protobuf-c\protobuf-c\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\spiffs\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\ulp\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\unity\unity\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\xtensa\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\build.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\component.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\depgraph.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\dfu.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\git_submodules.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\idf.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\kconfig.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\ldgen.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\prefix_map.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project_description.json.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\targets.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\tool_version_check.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\toolchain-esp32s3.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\utilities.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\version.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\confgen.py;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\config.env.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\bin\cmake.exe -SC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf -BC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build --check-stamp-file C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\.git\HEAD;C:\Users\gmh_k\Documents\Create\73-para-board\.git\refs\heads\develop;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeASMCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\git-data\grabRef.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\bootloader-prefix\tmp\bootloader-mkdirs.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.h;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args.in;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\sdkconfig;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeASMInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-ASM.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-C.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-CXX.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindGit.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Platform\Generic.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bootloader\subproject\components\micro-ecc\micro-ecc\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c3_family\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\esp_ble_mesh\lib\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\host\nimble\nimble\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\cmock\CMock\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_coex\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_phy\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_wifi\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\heap\tlsf\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\json\cJSON\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\lwip\lwip\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mbedtls\mbedtls\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mqtt\esp-mqtt\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\openthread\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\protobuf-c\protobuf-c\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\spiffs\spiffs\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\unity\unity\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\components\app_trace\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\subproject\components\micro-ecc\micro-ecc\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c3_family\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\esp_ble_mesh\lib\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\host\nimble\nimble\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\cmock\CMock\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_coex\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_common\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_phy\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_psram\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_wifi\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\espefuse.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\fatfs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\heap\tlsf\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\json\cJSON\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\lwip\lwip\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mbedtls\mbedtls\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mqtt\esp-mqtt\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\newlib\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\nvs_flash\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\openthread\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\partitions_singleapp.csv;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\protobuf-c\protobuf-c\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\spiffs\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\ulp\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\unity\unity\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\xtensa\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\build.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\component.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\depgraph.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\dfu.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\git_submodules.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\idf.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\kconfig.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\ldgen.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\prefix_map.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project_description.json.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\targets.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\tool_version_check.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\toolchain-esp32s3.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\utilities.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\version.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\confgen.py;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\config.env.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\bin\cmake.exe -SC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf -BC:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build --check-stamp-file C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\.git\HEAD;C:\Users\gmh_k\Documents\Create\73-para-board\.git\refs\heads\develop;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeASMCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeCXXCompiler.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\3.30.2\CMakeSystem.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\git-data\grabRef.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\bootloader-prefix\tmp\bootloader-mkdirs.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.cmake;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\config\sdkconfig.h;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\flash_args.in;C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\sdkconfig;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeASMInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\CheckCXXSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-ASM.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-C.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU-CXX.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Compiler\GNU.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindGit.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckCompilerFlag.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Internal\CheckSourceCompiles.cmake;C:\Users\gmh_k\Espressif\tools\cmake\3.30.2\share\cmake-3.30\Modules\Platform\Generic.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bootloader\subproject\components\micro-ecc\micro-ecc\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c3_family\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\esp_ble_mesh\lib\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\bt\host\nimble\nimble\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\cmock\CMock\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_coex\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_phy\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\esp_wifi\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\heap\tlsf\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\json\cJSON\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\lwip\lwip\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mbedtls\mbedtls\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\mqtt\esp-mqtt\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\lib\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\openthread\openthread\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\protobuf-c\protobuf-c\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\spiffs\spiffs\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\.git\modules\components\unity\unity\HEAD;C:\Users\gmh_k\esp\v5.4\esp-idf\components\app_trace\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bootloader\subproject\components\micro-ecc\micro-ecc\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c2\esp32c2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c3_family\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c5\esp32c5-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32c6\esp32c6-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\controller\lib_esp32h2\esp32h2-bt-lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\esp_ble_mesh\lib\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\bt\host\nimble\nimble\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\cmock\CMock\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_coex\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_common\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_phy\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_psram\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_wifi\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\espefuse.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\esptool_py\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\fatfs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\heap\tlsf\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\json\cJSON\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\lwip\lwip\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mbedtls\mbedtls\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\mqtt\esp-mqtt\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\newlib\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\nvs_flash\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\lib\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\openthread\openthread\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\partitions_singleapp.csv;C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\protobuf-c\protobuf-c\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\spiffs\spiffs\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\ulp\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\components\unity\unity\.git;C:\Users\gmh_k\esp\v5.4\esp-idf\components\xtensa\project_include.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\build.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\component.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\depgraph.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\dfu.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\git_submodules.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\idf.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\kconfig.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\ldgen.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\prefix_map.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\project_description.json.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\targets.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\third_party\GetGitRevisionDescription.cmake.in;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\tool_version_check.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\toolchain-esp32s3.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\utilities.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\cmake\version.cmake;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\confgen.py;C:\Users\gmh_k\esp\v5.4\esp-idf\tools\kconfig_new\config.env.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\ZERO_CHECK.vcxproj">
+      <Project>{6C2F8D20-6B12-3635-8811-0EA2FE20313A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\ParaBoard_esp-idf.elf.vcxproj">
+      <Project>{B70100CD-D8CE-313B-AFB5-82D4D361956C}</Project>
+      <Name>ParaBoard_esp-idf.elf</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\app_trace\__idf_app_trace.vcxproj">
+      <Project>{2EC9B667-FE06-30E2-A50B-51ACADFB719E}</Project>
+      <Name>__idf_app_trace</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\cmock\__idf_cmock.vcxproj">
+      <Project>{878CAE7A-6802-3755-BF6A-4DE333AB60C8}</Project>
+      <Name>__idf_cmock</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\console\__idf_console.vcxproj">
+      <Project>{59D855D5-10C6-3145-8E20-F9D77C46A2CE}</Project>
+      <Name>__idf_console</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\create_spi\__idf_create_spi.vcxproj">
+      <Project>{75254A96-706B-31F9-9D08-EE788581A3AF}</Project>
+      <Name>__idf_create_spi</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\esp_driver_cam\__idf_esp_driver_cam.vcxproj">
+      <Project>{0D44FFA2-A1EE-3E43-941F-428A202A0741}</Project>
+      <Name>__idf_esp_driver_cam</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\esp_eth\__idf_esp_eth.vcxproj">
+      <Project>{6ACC28E8-0C95-35CC-B87C-C354E2308A56}</Project>
+      <Name>__idf_esp_eth</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\esp_hid\__idf_esp_hid.vcxproj">
+      <Project>{2F3C4AB0-6822-35A5-BBAF-52D8C2E340C0}</Project>
+      <Name>__idf_esp_hid</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\esp_https_server\__idf_esp_https_server.vcxproj">
+      <Project>{F7BABA5C-7719-309E-ACD0-2A41FA8D2FAB}</Project>
+      <Name>__idf_esp_https_server</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\esp_lcd\__idf_esp_lcd.vcxproj">
+      <Project>{1F01BF67-D763-307C-94F4-07159B0B9BBF}</Project>
+      <Name>__idf_esp_lcd</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\esp_local_ctrl\__idf_esp_local_ctrl.vcxproj">
+      <Project>{D43D40C3-3BBC-3A6C-803D-80EF450922DB}</Project>
+      <Name>__idf_esp_local_ctrl</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\espcoredump\__idf_espcoredump.vcxproj">
+      <Project>{16C5D702-1169-38D3-8F7B-A98D6EEF1AD1}</Project>
+      <Name>__idf_espcoredump</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\fatfs\__idf_fatfs.vcxproj">
+      <Project>{B5306E15-7876-398A-A541-E1BD60AD3C8F}</Project>
+      <Name>__idf_fatfs</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\gptimer\__idf_gptimer.vcxproj">
+      <Project>{A95D8B1E-9B16-3B1A-9785-37B6539499A2}</Project>
+      <Name>__idf_gptimer</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\icm42688\__idf_icm42688.vcxproj">
+      <Project>{3AC419E9-A365-3624-960B-DBDDD7FC0174}</Project>
+      <Name>__idf_icm42688</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\json\__idf_json.vcxproj">
+      <Project>{77879C6E-0306-3829-B495-162B36E91C9A}</Project>
+      <Name>__idf_json</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\lps25hb\__idf_lps25hb.vcxproj">
+      <Project>{EB16D0DD-50A5-3115-955D-F07747B4D864}</Project>
+      <Name>__idf_lps25hb</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\main\__idf_main.vcxproj">
+      <Project>{984BE7EE-D627-3C06-BA9B-0C09D995A5EE}</Project>
+      <Name>__idf_main</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\mqtt\__idf_mqtt.vcxproj">
+      <Project>{70CB22ED-E13B-35B0-AA73-FB1E9D7D046B}</Project>
+      <Name>__idf_mqtt</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\nvs_sec_provider\__idf_nvs_sec_provider.vcxproj">
+      <Project>{15B1B458-EF41-3E6A-8E4E-A8B4CB44CC63}</Project>
+      <Name>__idf_nvs_sec_provider</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\perfmon\__idf_perfmon.vcxproj">
+      <Project>{03EE2668-C9C1-33ED-8C69-BE8529DC33C7}</Project>
+      <Name>__idf_perfmon</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\protobuf-c\__idf_protobuf-c.vcxproj">
+      <Project>{FC742BF7-A67D-318B-8732-9E6A9E0A4305}</Project>
+      <Name>__idf_protobuf-c</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\protocomm\__idf_protocomm.vcxproj">
+      <Project>{0F70E414-98E6-3B01-A275-EAAB1498D5F0}</Project>
+      <Name>__idf_protocomm</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\rt\__idf_rt.vcxproj">
+      <Project>{A495E246-3711-3670-ACE0-C00FE9241309}</Project>
+      <Name>__idf_rt</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\sdmmc_logger\__idf_sdmmc_logger.vcxproj">
+      <Project>{834997CD-2361-3A65-9BBF-9EB5A9B2C1B6}</Project>
+      <Name>__idf_sdmmc_logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\servo\__idf_servo.vcxproj">
+      <Project>{6D9C054F-3516-30C9-B118-7D0E759B5822}</Project>
+      <Name>__idf_servo</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\spiffs\__idf_spiffs.vcxproj">
+      <Project>{280DA1D9-4E9B-35C0-A5FE-9DFE3D108B99}</Project>
+      <Name>__idf_spiffs</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\touch_element\__idf_touch_element.vcxproj">
+      <Project>{185A1A84-0701-3EFC-BA73-E7B44E5AB107}</Project>
+      <Name>__idf_touch_element</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\unity\__idf_unity.vcxproj">
+      <Project>{C52757E1-9964-304D-ABF2-33A38D72F401}</Project>
+      <Name>__idf_unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\usb\__idf_usb.vcxproj">
+      <Project>{4C063EFE-B842-3A7B-B74E-33ACDD296737}</Project>
+      <Name>__idf_usb</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\wear_levelling\__idf_wear_levelling.vcxproj">
+      <Project>{8EC3B7E4-AF98-3B90-BC7E-144340915FB6}</Project>
+      <Name>__idf_wear_levelling</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\wifi_provisioning\__idf_wifi_provisioning.vcxproj">
+      <Project>{4DE17328-4E49-3589-8C0D-3C1AFA55DA0B}</Project>
+      <Name>__idf_wifi_provisioning</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\xtensa\__idf_xtensa.vcxproj">
+      <Project>{3AEC63E2-40BC-360D-A658-183D68E7ED88}</Project>
+      <Name>__idf_xtensa</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\app.vcxproj">
+      <Project>{CAEEE84E-4288-3860-938B-28B4AE9A4C73}</Project>
+      <Name>app</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\bootloader.vcxproj">
+      <Project>{BC63D8DD-236D-35E4-ADFA-290F0BD7A479}</Project>
+      <Name>bootloader</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

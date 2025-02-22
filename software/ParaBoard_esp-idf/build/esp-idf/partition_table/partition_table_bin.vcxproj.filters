@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\2a3933b18a1c65720ffe2b578427878e\partition-table.bin.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\0f8eab98d88c592d88cf4d2abbc241ab\partition_table_bin.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\partition_table\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\partition_table\CMakeFiles\partition_table_bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E90CBF34-3387-35BB-949A-14E0B4F7B1DC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

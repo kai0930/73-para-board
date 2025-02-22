@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\heap_idf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\app_startup.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\port_common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\port_systick.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\queue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\tasks.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\timers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\event_groups.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\stream_buffer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\portable\xtensa\port.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\portable\xtensa\xtensa_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\portable\xtensa\xtensa_overlay_os_hook.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\esp_additions\freertos_compatibility.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\esp_additions\idf_additions_event_groups.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\esp_additions\idf_additions.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\freertos\FreeRTOS-Kernel\portable\xtensa\portasm.S" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B72B1CD3-9588-3D40-BA05-DA4DBC5C4F46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/bootloader-flash_args
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/esp-idf/bootloader/bootloader-flash_args.in
+C:/Users/gmh_k/esp/v5.4/esp-idf/components/bootloader/CMakeLists.txt

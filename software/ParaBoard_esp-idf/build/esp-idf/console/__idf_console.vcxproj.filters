@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\commands.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\esp_console_common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\split_argv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\linenoise\linenoise.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\esp_console_repl_chip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_cmd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_date.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_dbl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_dstr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_end.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_file.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_hashtable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_int.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_lit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_rem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_rex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_str.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\arg_utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\argtable3\argtable3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\console\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B72B1CD3-9588-3D40-BA05-DA4DBC5C4F46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

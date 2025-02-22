@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\esp_err.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\crosscore_int.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\esp_ipc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\freertos_hooks.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\int_wdt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\panic.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\esp_system.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\startup.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\startup_funcs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\system_time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\stack_check.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\ubsan.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\xt_wdt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\task_wdt\task_wdt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\task_wdt\task_wdt_impl_timergroup.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\cpu_start.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\panic_handler.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\esp_system_chip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\image_process.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\brownout.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\esp_ipc_isr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\esp_ipc_isr_port.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\panic_arch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\expression_with_stack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\debug_helpers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\debug_stubs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\trax.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\soc\esp32s3\clk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\soc\esp32s3\reset_reason.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\soc\esp32s3\system_internal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\soc\esp32s3\cache_err_int.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\soc\esp32s3\apb_backup_dma.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\esp_ipc_isr_handler.S" />
+    <None Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\esp_ipc_isr_routines.S" />
+    <None Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\panic_handler_asm.S" />
+    <None Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\expression_with_stack_asm.S" />
+    <None Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\arch\xtensa\debug_helpers_asm.S" />
+    <None Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\port\soc\esp32s3\highint_hdl.S" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B72B1CD3-9588-3D40-BA05-DA4DBC5C4F46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

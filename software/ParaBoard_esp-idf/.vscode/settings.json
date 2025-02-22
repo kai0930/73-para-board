@@ -1,35 +1,18 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "ms-vscode.cpptools",
-  "[cpp]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "ms-vscode.cpptools"
-  },
   "C_Cpp.intelliSenseEngine": "default",
   "idf.espIdfPathWin": "C:\\Users\\gmh_k\\esp\\v5.4\\esp-idf",
+  "idf.pythonInstallPath": "c:\\Users\\gmh_k\\Espressif\\tools\\idf-python\\3.11.2\\python.exe",
   "idf.openOcdConfigs": [
     "interface/ftdi/esp32_devkitj_v1.cfg",
     "target/esp32s3.cfg"
   ],
-  "idf.portWin": "COM5",
+  "idf.portWin": "COM11",
   "idf.toolsPathWin": "c:\\Users\\gmh_k\\Espressif",
-  "idf.flashType": "UART",
-  "files.associations": {
-    "array": "cpp",
-    "deque": "cpp",
-    "list": "cpp",
-    "string": "cpp",
-    "unordered_map": "cpp",
-    "vector": "cpp",
-    "string_view": "cpp",
-    "format": "cpp",
-    "initializer_list": "cpp",
-    "ranges": "cpp",
-    "span": "cpp",
-    "text_encoding": "cpp",
-    "regex": "cpp"
+  "idf.customExtraVars": {
+    "OPENOCD_SCRIPTS": "c:\\Users\\gmh_k\\Espressif\\tools\\openocd-esp32\\v0.12.0-esp32-20240318/openocd-esp32/share/openocd/scripts",
+    "IDF_CCACHE_ENABLE": "1",
+    "ESP_ROM_ELF_DIR": "c:\\Users\\gmh_k\\Espressif\\tools\\esp-rom-elfs\\20240305/",
+    "IDF_TARGET": "esp32s3"
   },
-  "C_Cpp.formatting": "clangFormat",
-  "C_Cpp.clang_format_fallbackStyle": "Google",
-  "C_Cpp.clang_format_style": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 160, AlignAfterOpenBracket: Align, AllowShortFunctionsOnASingleLine: None, BinPackArguments: true, BinPackParameters: true, BreakBeforeBraces: Attach}"
+  "idf.flashType": "UART"
 }

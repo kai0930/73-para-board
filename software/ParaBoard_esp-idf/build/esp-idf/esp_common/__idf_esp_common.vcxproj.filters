@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_common\src\esp_err_to_name.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_common\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B72B1CD3-9588-3D40-BA05-DA4DBC5C4F46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

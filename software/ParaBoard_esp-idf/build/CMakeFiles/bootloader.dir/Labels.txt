@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/bootloader
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/b13f22dff310f8752ff0701f7eaaee11/bootloader.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/d95a3354844474cfd5ff229a58201a71/bootloader-complete.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/04f5123e2f5d787324502a65b6ce1030/bootloader-build.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/04f5123e2f5d787324502a65b6ce1030/bootloader-configure.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/04f5123e2f5d787324502a65b6ce1030/bootloader-download.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/04f5123e2f5d787324502a65b6ce1030/bootloader-install.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/04f5123e2f5d787324502a65b6ce1030/bootloader-mkdir.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/04f5123e2f5d787324502a65b6ce1030/bootloader-patch.rule
+C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/CMakeFiles/04f5123e2f5d787324502a65b6ce1030/bootloader-update.rule

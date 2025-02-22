@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\ld\esp32s3\sections.ld.in">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\CMakeFiles\5e0a5daa424ec46a1bea83a3f93af2da\sections.ld.in.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\esp_system\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\gmh_k\Documents\Create\73-para-board\software\ParaBoard_esp-idf\build\esp-idf\esp_system\CMakeFiles\sections.ld.in">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E90CBF34-3387-35BB-949A-14E0B4F7B1DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0711DAEF-0732-37A2-8152-C90E94BC4868}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

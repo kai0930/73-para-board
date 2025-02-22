@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "app_main.cpp"
-    INCLUDE_DIRS "."
-    REQUIRES create_spi icm20602 lps25hb config esp_timer esp_system gptimer
+  SRCS "app_main.cpp"
+  INCLUDE_DIRS "."
+  REQUIRES "config create_spi icm42688 lps25hb sdmmc_logger servo driver esp_timer freertos esp_system console"
 )

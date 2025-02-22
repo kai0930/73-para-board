@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\os\log_timestamp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\log_timestamp_common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\os\log_lock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\os\log_write.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\buffer\log_buffers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\log_level\log_level.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\log_level\tag_log_level\tag_log_level.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\log_level\tag_log_level\linked_list\log_linked_list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\src\log_level\tag_log_level\cache\log_binary_heap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gmh_k\esp\v5.4\esp-idf\components\log\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B72B1CD3-9588-3D40-BA05-DA4DBC5C4F46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

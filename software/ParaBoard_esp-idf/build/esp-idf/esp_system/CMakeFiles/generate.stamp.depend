@@ -1,4 +1,0 @@
-# CMake generation dependency list for this directory.
-C:/Users/gmh_k/Documents/Create/73-para-board/software/ParaBoard_esp-idf/build/ldgen_libraries.in
-C:/Users/gmh_k/esp/v5.4/esp-idf/components/esp_system/CMakeLists.txt
-C:/Users/gmh_k/esp/v5.4/esp-idf/components/esp_system/ld/ld.cmake

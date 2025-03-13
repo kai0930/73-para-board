@@ -1,0 +1,14 @@
+idf_component_register(
+    SRCS 
+        "sd_controller.cpp"
+    INCLUDE_DIRS 
+        "include"
+    REQUIRES 
+        freertos 
+        fatfs 
+        sdmmc 
+        esp_common
+        log
+        json
+        config
+)

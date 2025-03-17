@@ -12,11 +12,14 @@
 
 #include "cJSON.h"
 #include "config.hpp"
+#include "diskio.h"
 #include "driver/sdmmc_host.h"
 #include "esp_heap_caps.h"
 #include "esp_log.h"
 #include "esp_vfs_fat.h"
+#include "ff.h"
 #include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
 #include "freertos/task.h"
 #include "sdkconfig.h"
 #include "sdmmc_cmd.h"
@@ -41,7 +44,7 @@ struct SettingItem {
 
 class SdController {
  private:
-  static constexpr const char* TAG = "SD_CONTROLLER";
+  static constexpr const char* TAG = "SDMMC";
   sdmmc_card_t* card = nullptr;
   FILE* log_file_pointer = nullptr;
   FILE* setting_file_pointer = nullptr;
@@ -56,14 +59,35 @@ class SdController {
   static constexpr size_t LOG_BUFFER_SIZE = 4 * 1024;
   char* dmaBuffer = nullptr;
 
+  // ファイル操作用ミューテックス
+  SemaphoreHandle_t file_mutex = nullptr;
+
   // 設定項目を格納するマップ
   std::map<std::string, SettingItem> settings;
+
+  // 設定のバックアップ
+  std::map<std::string, SettingItem> settings_backup;
 
   // JSONファイル読み込み処理
   bool loadSettingsFromFile();
 
   // JSONファイル書き込み処理
   bool saveSettingsToFile();
+
+  // 安全なファイル書き込み処理（一時ファイル使用）
+  bool safeWriteSettingsToFile();
+
+  // ファイルシステム状態チェック
+  bool checkFileSystemStatus();
+
+  // エラー情報をログに記録
+  void logFileError(const char* operation, const char* filename);
+
+  // 設定のバックアップを作成
+  void backupSettings();
+
+  // バックアップから設定を復元
+  void restoreSettingsFromBackup();
 
   // デフォルト設定の初期化
   void initDefaultSettings();

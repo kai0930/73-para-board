@@ -100,5 +100,41 @@ void LogTaskHandler::logTask(void* pvParameters) {
       self->logger->flush();
       count = 0;
     }
+
+    // // 一定回数でログを出力
+    // if (count % 100 == 0) {
+    //   // 加速度・角速度・気圧をログに変換してから表示
+    //   float accel_x =
+    //       ((int16_t)(data.accel.u_x << 8 | data.accel.d_x)) / 32768.0f
+    //       * 16.0f;
+    //   float accel_y =
+    //       ((int16_t)(data.accel.u_y << 8 | data.accel.d_y)) / 32768.0f
+    //       * 16.0f;
+    //   float accel_z =
+    //       ((int16_t)(data.accel.u_z << 8 | data.accel.d_z)) / 32768.0f
+    //       * 16.0f;
+    //
+    //   float gyro_x =
+    //       ((int16_t)(data.gyro.u_x << 8 | data.gyro.d_x)) / 32768.0f *
+    //       2000.0f;
+    //   float gyro_y =
+    //       ((int16_t)(data.gyro.u_y << 8 | data.gyro.d_y)) / 32768.0f *
+    //       2000.0f;
+    //   float gyro_z =
+    //       ((int16_t)(data.gyro.u_z << 8 | data.gyro.d_z)) / 32768.0f *
+    //       2000.0f;
+    //
+    //   uint32_t pressure_value = (data.pressure.h_p << 16 |
+    //                              data.pressure.l_p << 8 | data.pressure.xl_p)
+    //                              /
+    //                             4096.0f;
+    //
+    //   ESP_LOGI("LOG_TASK",
+    //            "Time: %lld us, Accel: [%.2f, %.2f, %.2f] m/s^2, Gyro: [%.2f,
+    //            "
+    //            "%.2f, %.2f] dps, Pressure: %lu hPa",
+    //            data.timestamp_us, accel_x, accel_y, accel_z, gyro_x, gyro_y,
+    //            gyro_z, pressure_value);
+    // }
   }
 }

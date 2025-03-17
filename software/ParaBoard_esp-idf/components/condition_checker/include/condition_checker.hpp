@@ -31,7 +31,7 @@ class ConditionChecker {
    * @return 離床検知したかどうか
    * @note 25Hzで呼び出すことを想定
    */
-  bool checkLaunchByPressure(uint32_t pressure);
+  bool checkLaunchByPressure(float pressure);
 
   /**
    * @brief 気圧による頂点検知
@@ -40,7 +40,7 @@ class ConditionChecker {
    * @note 離床検知をしていないときはfalseを返す
    * @note 25Hzで呼び出すことを想定
    */
-  bool checkApogeeByPressure(uint32_t pressure);
+  bool checkApogeeByPressure(float pressure);
 
   /**
    * @brief タイマーによる頂点検知
@@ -71,19 +71,40 @@ class ConditionChecker {
  private:
   static constexpr const char* TAG = "CONDITION_CHECKER";
 
+  // 条件検知フラグ
+  /** 離床検知フラグ */
   bool is_launched;
+  /** 頂点検知フラグ */
   bool has_reached_apogee;
 
+  /** 離床検知時間 */
   int64_t launch_time;
 
+  // 離床検知条件I（加速度）用変数
+  /** 各軸加速度の和 */
   float accel_sum_for_check_launch[3];
-  uint8_t pressure_decrease_count_for_check_launch;
-  uint8_t pressure_increase_count_for_check_apogee;
+  /** 各軸加速度の和のカウント回数 */
   int16_t accel_data_count_for_check_launch;
-  uint32_t pressure_sum_for_check_launch;
-  uint32_t pressure_sum_for_check_apogee;
-  uint32_t last_pressure_av_for_check_launch;
-  uint32_t last_pressure_av_for_check_apogee;
+  /** 各軸加速度の平均が既定の条件を満たした回数 */
+  uint8_t accel_increase_count_for_check_launch;
+
+  // 離床検知条件II（気圧）用変数
+  /** 気圧が減少した回数 */
+  uint8_t pressure_decrease_count_for_check_launch;
+  /** 気圧の和 */
+  float pressure_sum_for_check_launch;
+  /** 気圧の和のカウント回数 */
   uint32_t pressure_data_count_for_check_launch;
+  /** 前回の気圧の平均 */
+  float last_pressure_av_for_check_launch;
+
+  // 頂点検知条件II（気圧）用変数
+  /** 気圧が増加した回数 */
+  uint8_t pressure_increase_count_for_check_apogee;
+  /** 気圧の和 */
+  float pressure_sum_for_check_apogee;
+  /** 気圧の和のカウント回数 */
   uint32_t pressure_data_count_for_check_apogee;
+  /** 前回の気圧の平均 */
+  float last_pressure_av_for_check_apogee;
 };

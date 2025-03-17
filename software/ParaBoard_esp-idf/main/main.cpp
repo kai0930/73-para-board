@@ -15,6 +15,7 @@
 #include "freertos/task.h"
 #include "gptimer.hpp"
 #include "icm42688.hpp"
+#include "led_controller.hpp"
 #include "log_task_handler.hpp"
 #include "lps25hb.hpp"
 #include "sd_controller.hpp"
@@ -33,7 +34,11 @@ CanComm *can_comm = nullptr;
 LogTaskHandler *log_task_handler = nullptr;
 SensorTaskHandler *sensor_task_handler = nullptr;
 CommandHandler *command_handler = nullptr;
+ConditionChecker *condition_checker = nullptr;
 ServoController *servo_controller = nullptr;
+LedController *led_controller = nullptr;
+
+constexpr const char *TAG = "MAIN";
 
 void initUart() {
   /* Disable buffering on stdin */
@@ -80,89 +85,112 @@ extern "C" void app_main(void) {
 
   icm = new Icm::Icm42688();
   if (!icm->begin(spi, config::pins.ICMCS)) {
-    printf("Failed to initialize ICM42688\n");
+    ESP_LOGE(TAG, "Failed to initialize ICM42688");
   }
 
   lps = new Lps::Lps25hb();
   if (!lps->begin(spi, config::pins.LPSCS)) {
-    printf("Failed to initialize LPS25HB\n");
+    ESP_LOGE(TAG, "Failed to initialize LPS25HB");
   }
 
   // SDカードの初期化
   logger = new SdController();
   if (!logger->begin()) {
-    printf("Failed to initialize SDMMC\n");
+    ESP_LOGE(TAG, "Failed to initialize SDMMC");
   }
 
-  // SDカードのsettings.jsonから、"test-text"を読み込み表示
-  std::string test_text = logger->getStringSetting("test-text", "default");
-  printf("test-text: %s\n", test_text.c_str());
+  // 通信モードの設定を読み込む
+  std::string comm_mode_str = logger->getStringSetting("comm_mode", "can");
+  bool use_can = (comm_mode_str != "uart");
+  ESP_LOGI(TAG, "Communication mode: %s", use_can ? "CAN" : "UART");
 
-  // CANの初期化
-  can_comm =
-      new CanComm(BoardID::PARA, config::pins.CAN_TX, config::pins.CAN_RX);
-  if (can_comm->begin() == ESP_OK) {
-    printf("[MAIN] CAN driver started.\n");
+  // CANの初期化（CANモードの場合のみ）
+  if (use_can) {
+    can_comm =
+        new CanComm(BoardID::PARA, config::pins.CAN_TX, config::pins.CAN_RX);
+    if (can_comm->begin() == ESP_OK) {
+      ESP_LOGI(TAG, "CAN driver started.");
+    } else {
+      ESP_LOGE(TAG, "can_comm->begin() failed.");
+      return;
+    }
   } else {
-    printf("[MAIN] can_comm->begin() failed.\n");
-    return;
+    can_comm = nullptr;
+  }
+
+  // UARTの初期化（UARTモードの場合のみ）
+  if (!use_can) {
+    initUart();
+    ESP_LOGI(TAG, "UART initialized");
   }
 
   // タイマーの初期化
   gptimer = new GPTimer();
   if (!gptimer->init(40000000, 40000)) {
-    printf("Failed to initialize GPTimer\n");
+    ESP_LOGE(TAG, "Failed to initialize GPTimer");
   }
   gptimer->registerCallback(onTimer);
   gptimer->start();
 
-  // UARTの初期化
-  initUart();
-
   // LogTaskHandlerの初期化
   log_task_handler = new LogTaskHandler();
   if (!log_task_handler->init(logger)) {
-    printf("Failed to initialize LogTaskHandler\n");
+    ESP_LOGE(TAG, "Failed to initialize LogTaskHandler");
     return;
   }
-
-  // SensorTaskHandlerの初期化
-  sensor_task_handler = new SensorTaskHandler();
-  if (!sensor_task_handler->init(icm, lps, log_task_handler)) {
-    printf("Failed to initialize SensorTaskHandler\n");
-    return;
-  }
-  sensor_task_handler->startTask();
+  ESP_LOGI(TAG, "LogTaskHandler initialized");
 
   // ServoControllerの初期化
   servo_controller = new ServoController();
   if (!servo_controller->init(config::pins.SERVO)) {
-    printf("Failed to initialize ServoController\n");
+    ESP_LOGE(TAG, "Failed to initialize ServoController");
     return;
   }
+  ESP_LOGI(TAG, "ServoController initialized");
+
+  // SensorTaskHandlerの初期化
+  sensor_task_handler = new SensorTaskHandler();
+  if (!sensor_task_handler->init(icm, lps, log_task_handler, servo_controller,
+                                 logger)) {
+    ESP_LOGE(TAG, "Failed to initialize SensorTaskHandler");
+    return;
+  }
+  ESP_LOGI(TAG, "SensorTaskHandler initialized");
+  sensor_task_handler->startTask();
+
+  // LEDコントローラーの初期化
+  led_controller = new LedController();
+  if (!led_controller->init(config::pins.LED)) {
+    ESP_LOGE(TAG, "Failed to initialize LEDController");
+    return;
+  }
+  ESP_LOGI(TAG, "LEDController initialized");
 
   // CommandHandlerの初期化
   command_handler = new CommandHandler();
   if (!command_handler->init(can_comm, logger, sensor_task_handler,
-                             log_task_handler, servo_controller)) {
-    printf("Failed to initialize CommandHandler\n");
+                             log_task_handler, servo_controller,
+                             led_controller)) {
+    ESP_LOGE(TAG, "Failed to initialize CommandHandler");
     return;
   }
+  ESP_LOGI(TAG, "CommandHandler initialized");
   command_handler->startTask();
 
-  // SDカードの設定でis_logging_modeがtrueの場合、LOGGINGモードで開始
+  // SDカードの設定でis_logging_modeがtrueの場合、LOGGINGモードで開始・他基板にCANで通知
   bool is_logging_mode = logger->getBoolSetting("is_logging_mode", false);
   if (is_logging_mode) {
-    printf("is_logging_mode is true, starting in LOGGING mode\n");
+    ESP_LOGI(TAG, "is_logging_mode is true, starting in LOGGING mode");
     // 現在のモードがSTARTの場合のみ、LOGGINGモードに変更
     if (command_handler->getModeManager()->getMode() == ModeCommand::START) {
       command_handler->getModeManager()->changeMode(ModeCommand::LOGGING);
-      printf("Changed to LOGGING mode\n");
+      uint8_t mode = static_cast<uint8_t>(ModeCommand::LOGGING);
+      can_comm->send(ContentID::BOARD_STATE, &mode, 1);
+    } else {
+      ESP_LOGI(TAG, "is_logging_mode is false, starting in START mode");
     }
-  } else {
-    printf("is_logging_mode is false, starting in START mode\n");
-  }
 
-  // データ格納用キュー（処理用）
-  process_queue = xQueueCreate(10, sizeof(SensorData));
+    // データ格納用キュー（処理用）
+    process_queue = xQueueCreate(10, sizeof(SensorData));
+  }
 }

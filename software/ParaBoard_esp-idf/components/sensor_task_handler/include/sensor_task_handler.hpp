@@ -11,6 +11,8 @@
 #include "icm42688.hpp"
 #include "log_task_handler.hpp"
 #include "lps25hb.hpp"
+#include "sd_controller.hpp"
+#include "servo_controller.hpp"
 
 class SensorTaskHandler {
  public:
@@ -22,9 +24,12 @@ class SensorTaskHandler {
    * @param icm ICMセンサーへのポインタ
    * @param lps LPSセンサーへのポインタ
    * @param log_handler ログタスクハンドラへのポインタ
+   * @param servo サーボコントローラへのポインタ
+   * @param sd_controller SDカードコントローラへのポインタ
    * @return 初期化が成功したかどうか
    */
-  bool init(Icm::Icm42688* icm, Lps::Lps25hb* lps, LogTaskHandler* log_handler);
+  bool init(Icm::Icm42688* icm, Lps::Lps25hb* lps, LogTaskHandler* log_handler,
+            ServoController* servo, SdController* sd_controller);
 
   /**
    * @brief センサータスクを開始する
@@ -52,21 +57,21 @@ class SensorTaskHandler {
    * @brief 離床検知状態を取得する
    * @return 離床検知状態
    */
-  bool getIsLaunched() const { return condition_checker.getIsLaunched(); }
+  bool getIsLaunched() const { return condition_checker->getIsLaunched(); }
 
   /**
    * @brief 頂点検知状態を取得する
    * @return 頂点検知状態
    */
   bool getHasReachedApogee() const {
-    return condition_checker.getHasReachedApogee();
+    return condition_checker->getHasReachedApogee();
   }
 
   /**
    * @brief 離床検知時刻を取得する
    * @return 離床検知時刻（ミリ秒）
    */
-  uint32_t getLaunchTime() const { return condition_checker.getLaunchTime(); }
+  uint32_t getLaunchTime() const { return condition_checker->getLaunchTime(); }
 
  private:
   static constexpr const char* TAG = "SENSOR_TASK_HANDLER";
@@ -74,12 +79,15 @@ class SensorTaskHandler {
   static constexpr int TASK_PRIORITY = 5;
   static constexpr int LPS_SAMPLE_DIVIDER =
       40;  // LPSは25Hzでサンプリング（ICMの1kHzの1/40）
+  bool is_servo_open = false;
 
   TaskHandle_t sensor_task_handle = nullptr;
   Icm::Icm42688* icm = nullptr;
   Lps::Lps25hb* lps = nullptr;
   LogTaskHandler* log_handler = nullptr;
-  ConditionChecker condition_checker;
+  ServoController* servo = nullptr;
+  SdController* sd_controller = nullptr;
+  ConditionChecker* condition_checker = nullptr;
 
   /**
    * @brief センサータスク関数

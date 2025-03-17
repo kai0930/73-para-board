@@ -7,6 +7,7 @@ CommandHandler::CommandHandler()
       sensor_handler(nullptr),
       log_handler(nullptr),
       servo_controller(nullptr),
+      led_controller(nullptr),
       mode_manager(nullptr) {}
 
 CommandHandler::~CommandHandler() {
@@ -23,10 +24,13 @@ CommandHandler::~CommandHandler() {
 bool CommandHandler::init(CanComm* can_comm_ptr, SdController* logger_ptr,
                           SensorTaskHandler* sensor_handler_ptr,
                           LogTaskHandler* log_handler_ptr,
-                          ServoController* servo_controller_ptr) {
+                          ServoController* servo_controller_ptr,
+                          LedController* led_controller_ptr) {
+  // UARTモードの場合はcan_commがnullptrでも許容する
   if (can_comm_ptr == nullptr) {
-    ESP_LOGE(TAG, "CAN communication pointer is null");
-    return false;
+    ESP_LOGW(
+        TAG,
+        "CAN communication pointer is null, will operate in UART mode only");
   }
 
   if (logger_ptr == nullptr) {
@@ -49,11 +53,27 @@ bool CommandHandler::init(CanComm* can_comm_ptr, SdController* logger_ptr,
     return false;
   }
 
+  if (led_controller_ptr == nullptr) {
+    ESP_LOGE(TAG, "LED controller pointer is null");
+    return false;
+  }
+
   can_comm = can_comm_ptr;
   logger = logger_ptr;
   sensor_handler = sensor_handler_ptr;
   log_handler = log_handler_ptr;
   servo_controller = servo_controller_ptr;
+  led_controller = led_controller_ptr;
+
+  // SDカードから通信モードを読み込む
+  std::string comm_mode_str = logger->getStringSetting("comm_mode", "can");
+  if (comm_mode_str == "uart" || can_comm == nullptr) {
+    comm_mode = CommMode::UART;
+    ESP_LOGI(TAG, "Communication mode set to UART");
+  } else {
+    comm_mode = CommMode::CAN;
+    ESP_LOGI(TAG, "Communication mode set to CAN");
+  }
 
   // モードマネージャーの設定
   setupModeManager();
@@ -68,11 +88,62 @@ void CommandHandler::setupModeManager() {
   mode_manager->setupMode(
       ModeCommand::START,
       [this](ModeCommand previous_mode, ModeCommand next_mode) {
-        printf("Mode changed to %s\n",
-               ModeManager::getModeString(next_mode).c_str());
+        ESP_LOGI(TAG, "Changing to START mode");
+
+        // ログバッファをフラッシュして、ファイル操作の競合を減らす
+        if (log_handler != nullptr && logger != nullptr) {
+          logger->flush();
+        }
+
         // STARTモードに移行したらis_logging_modeをfalseに設定
         logger->setBoolSetting("is_logging_mode", false);
-        logger->saveSettings();
+        ESP_LOGI(TAG, "is_logging_mode set to false");
+
+        // 設定の保存を試みる（改善版）
+        int retry_count = 0;
+        const int max_retries = 3;
+        bool save_success = false;
+
+        while (retry_count < max_retries && !save_success) {
+          // 少し待機してから再試行
+          if (retry_count > 0) {
+            ESP_LOGI(TAG, "Retrying settings save (attempt %d/%d)...",
+                     retry_count + 1, max_retries);
+            vTaskDelay(
+                pdMS_TO_TICKS(500 * retry_count));  // 待機時間を徐々に増やす
+          }
+
+          save_success = logger->saveSettings();
+
+          if (!save_success) {
+            ESP_LOGW(TAG, "Failed to save settings (attempt %d/%d)",
+                     retry_count + 1, max_retries);
+            retry_count++;
+          }
+        }
+
+        if (save_success) {
+          ESP_LOGI(TAG, "Settings saved to SD card successfully");
+        } else {
+          ESP_LOGE(
+              TAG,
+              "Failed to save settings after %d attempts, continuing anyway",
+              max_retries);
+        }
+
+        // STARTモードのLED点滅パターンを設定
+        if (led_controller->getBlinkTaskHandle() == nullptr) {
+          // タスクが存在しない場合は新規作成
+          led_controller->startBlinking(START_MODE_LED_ON_TIME_MS,
+                                        START_MODE_LED_OFF_TIME_MS);
+        } else {
+          // タスクが存在する場合はパターンのみ変更
+          led_controller->changeBlinkPattern(START_MODE_LED_ON_TIME_MS,
+                                             START_MODE_LED_OFF_TIME_MS);
+        }
+
+        printf("Mode changed to %s\n",
+               ModeManager::getModeString(next_mode).c_str());
       },
       [](ModeCommand previous_mode, ModeCommand next_mode) {
         printf("Mode changed from %s\n",
@@ -83,25 +154,113 @@ void CommandHandler::setupModeManager() {
   mode_manager->setupMode(
       ModeCommand::LOGGING,
       [this](ModeCommand previous_mode, ModeCommand next_mode) {
-        printf("Mode changed to %s\n",
-               ModeManager::getModeString(next_mode).c_str());
+        ESP_LOGI(TAG, "Changing to LOGGING mode");
+
+        // ログバッファをフラッシュして、ファイル操作の競合を減らす
+        if (log_handler != nullptr && logger != nullptr) {
+          logger->flush();
+        }
+
         // LOGGINGモードに移行したらis_logging_modeをtrueに設定
         logger->setBoolSetting("is_logging_mode", true);
-        logger->saveSettings();
+        ESP_LOGI(TAG, "is_logging_mode set to true");
+
+        // 設定の保存を試みる（改善版）
+        int retry_count = 0;
+        const int max_retries = 3;
+        bool save_success = false;
+
+        while (retry_count < max_retries && !save_success) {
+          // 少し待機してから再試行
+          if (retry_count > 0) {
+            ESP_LOGI(TAG, "Retrying settings save (attempt %d/%d)...",
+                     retry_count + 1, max_retries);
+            vTaskDelay(
+                pdMS_TO_TICKS(500 * retry_count));  // 待機時間を徐々に増やす
+          }
+
+          save_success = logger->saveSettings();
+
+          if (!save_success) {
+            ESP_LOGW(TAG, "Failed to save settings (attempt %d/%d)",
+                     retry_count + 1, max_retries);
+            retry_count++;
+          }
+        }
+
+        if (save_success) {
+          ESP_LOGI(TAG, "Settings saved to SD card successfully");
+        } else {
+          ESP_LOGE(
+              TAG,
+              "Failed to save settings after %d attempts, continuing anyway",
+              max_retries);
+        }
+
         // センサータスクとログタスクを開始
-        vTaskResume(sensor_handler->getTaskHandle());
+        if (sensor_handler->getTaskHandle() != nullptr) {
+          // タスクの状態をチェック
+          eTaskState task_state =
+              eTaskGetState(sensor_handler->getTaskHandle());
+          if (task_state == eSuspended) {
+            ESP_LOGI(TAG, "Resuming sensor task");
+            vTaskResume(sensor_handler->getTaskHandle());
+          } else {
+            ESP_LOGW(TAG, "Sensor task is not suspended, current state: %d",
+                     task_state);
+            // タスクが停止していない場合は再起動を試みる
+            if (task_state == eDeleted || task_state == eInvalid) {
+              ESP_LOGI(TAG, "Restarting sensor task");
+              sensor_handler->startTask();
+            }
+          }
+        } else {
+          ESP_LOGI(TAG, "Starting sensor task");
+          sensor_handler->startTask();
+        }
+
         log_handler->startTask();
+
+        // LOGGINGモードのLED点滅パターンを設定
+        if (led_controller->getBlinkTaskHandle() == nullptr) {
+          // タスクが存在しない場合は新規作成
+          led_controller->startBlinking(LOGGING_MODE_LED_ON_TIME_MS,
+                                        LOGGING_MODE_LED_OFF_TIME_MS);
+        } else {
+          // タスクが存在する場合はパターンのみ変更
+          led_controller->changeBlinkPattern(LOGGING_MODE_LED_ON_TIME_MS,
+                                             LOGGING_MODE_LED_OFF_TIME_MS);
+        }
       },
       [this](ModeCommand previous_mode, ModeCommand next_mode) {
+        // センサータスクとログタスクを停止
+        if (sensor_handler->getTaskHandle() != nullptr) {
+          // タスクの状態をチェック
+          eTaskState task_state =
+              eTaskGetState(sensor_handler->getTaskHandle());
+          if (task_state != eSuspended) {
+            ESP_LOGI(TAG, "Suspending sensor task");
+            vTaskSuspend(sensor_handler->getTaskHandle());
+          } else {
+            ESP_LOGW(TAG, "Sensor task is already suspended");
+          }
+        }
+        log_handler->stopTask();
         printf("Mode changed from %s\n",
                ModeManager::getModeString(previous_mode).c_str());
-        // センサータスクとログタスクを停止
-        vTaskSuspend(sensor_handler->getTaskHandle());
-        log_handler->stopTask();
       });
 
   // モードマネージャーの初期化
   mode_manager->begin();
+
+  // 初期モードに応じたLED点滅パターンを設定（初期化時は新しいタスクを作成）
+  if (mode_manager->getMode() == ModeCommand::START) {
+    led_controller->startBlinking(START_MODE_LED_ON_TIME_MS,
+                                  START_MODE_LED_OFF_TIME_MS);
+  } else if (mode_manager->getMode() == ModeCommand::LOGGING) {
+    led_controller->startBlinking(LOGGING_MODE_LED_ON_TIME_MS,
+                                  LOGGING_MODE_LED_OFF_TIME_MS);
+  }
 }
 
 void CommandHandler::startTask() {
@@ -221,8 +380,15 @@ void CommandHandler::processUartCommand(int cmd_uart) {
 }
 
 void CommandHandler::processServoCommand(ServoCommand servo_command) {
+  // STARTモードの時のみサーボコマンドを実行する
+  if (mode_manager->getMode() != ModeCommand::START) {
+    ESP_LOGW(TAG, "Servo command ignored: Not in START mode");
+    printf("Servo commands are only available in START mode\n");
+    return;
+  }
+
   int open_angle = logger->getIntSetting("open-angle", 10);
-  int close_angle = logger->getIntSetting("close-angle", 10);
+  int close_angle = logger->getIntSetting("close-angle", 55);
   bool settings_changed = false;
 
   switch (servo_command) {
@@ -243,9 +409,7 @@ void CommandHandler::processServoCommand(ServoCommand servo_command) {
       logger->setIntSetting("open-angle", open_angle);
       settings_changed = true;
       // 現在のモードがSTARTの場合は、サーボの角度も更新する
-      if (mode_manager->getMode() == ModeCommand::START) {
-        servo_controller->openServo(open_angle);
-      }
+      servo_controller->openServo(open_angle);
       break;
     case ServoCommand::OPEN_ANGLE_PLUS_1:
       printf("OPEN_ANGLE_PLUS_1\n");
@@ -254,9 +418,7 @@ void CommandHandler::processServoCommand(ServoCommand servo_command) {
       logger->setIntSetting("open-angle", open_angle);
       settings_changed = true;
       // 現在のモードがSTARTの場合は、サーボの角度も更新する
-      if (mode_manager->getMode() == ModeCommand::START) {
-        servo_controller->openServo(open_angle);
-      }
+      servo_controller->openServo(open_angle);
       break;
     case ServoCommand::CLOSE_ANGLE_PLUS:
       printf("CLOSE_ANGLE_PLUS\n");
@@ -278,6 +440,7 @@ void CommandHandler::processServoCommand(ServoCommand servo_command) {
 
   // 設定が変更された場合、SDカードに保存する
   if (settings_changed) {
+    // 設定の保存を試みるが、失敗しても続行
     if (logger->saveSettings()) {
       ESP_LOGI(TAG, "Servo settings saved to SD card");
       // 変更後の値をログに出力
@@ -285,7 +448,12 @@ void CommandHandler::processServoCommand(ServoCommand servo_command) {
                logger->getIntSetting("open-angle"),
                logger->getIntSetting("close-angle"));
     } else {
-      ESP_LOGE(TAG, "Failed to save servo settings to SD card");
+      ESP_LOGW(TAG,
+               "Failed to save servo settings to SD card, but continuing with "
+               "updated values in memory");
+      // 変更後の値をログに出力（メモリ上の値）
+      ESP_LOGI(TAG, "Open angle (in memory): %d, Close angle (in memory): %d",
+               open_angle, close_angle);
     }
   }
 }
@@ -293,9 +461,15 @@ void CommandHandler::processServoCommand(ServoCommand servo_command) {
 void CommandHandler::commandTask(void* pvParameters) {
   CommandHandler* self = static_cast<CommandHandler*>(pvParameters);
 
-  if (self == nullptr || self->can_comm == nullptr ||
-      self->mode_manager == nullptr) {
+  if (self == nullptr || self->mode_manager == nullptr) {
     ESP_LOGE("COMMAND_TASK", "Invalid parameters");
+    vTaskDelete(nullptr);
+    return;
+  }
+
+  // CANモードの場合、CANが初期化されているか確認
+  if (self->comm_mode == CommMode::CAN && self->can_comm == nullptr) {
+    ESP_LOGE("COMMAND_TASK", "CAN is not initialized but CAN mode is selected");
     vTaskDelete(nullptr);
     return;
   }
@@ -303,17 +477,17 @@ void CommandHandler::commandTask(void* pvParameters) {
   CanRxFrame receive_frame;
 
   while (true) {
-    // CANからのコマンド受信
-    self->can_comm->readFrameNoWait(receive_frame);
-    self->processCanCommand(receive_frame);
-
-    // UARTからのコマンド受信
-    int cmd_uart = getchar();
-    if (cmd_uart != EOF) {
-      self->processUartCommand(cmd_uart);
+    if (self->comm_mode == CommMode::CAN) {
+      // CANからのコマンド受信
+      if (self->can_comm->readFrameNoWait(receive_frame) == ESP_OK) {
+        self->processCanCommand(receive_frame);
+      }
+    } else {
+      // UARTからのコマンド受信
+      int cmd_uart = getchar();
+      if (cmd_uart != EOF) {
+        self->processUartCommand(cmd_uart);
+      }
     }
-
-    // 少し待機して次のループへ
-    vTaskDelay(pdMS_TO_TICKS(self->UART_DELAY_MS));
   }
 }

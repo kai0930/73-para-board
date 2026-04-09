@@ -14,8 +14,8 @@ struct Pins {
   static constexpr gpio_num_t LPSCS = GPIO_NUM_17;
 
   // CAN
-  static constexpr gpio_num_t CAN_RX = GPIO_NUM_47;
-  static constexpr gpio_num_t CAN_TX = GPIO_NUM_21;
+  static constexpr gpio_num_t CAN_RX = GPIO_NUM_21;
+  static constexpr gpio_num_t CAN_TX = GPIO_NUM_47;
 
   // Servo
   static constexpr gpio_num_t SERVO = GPIO_NUM_42;
@@ -33,6 +33,8 @@ namespace ConditionConfig {
 static constexpr int16_t NUMBER_OF_ACCEL_DATA_FOR_LAUNCH = 20;
 /** 判定に必要な加速度の二乗和の閾値(G^2) */
 static constexpr int16_t ACCEL_SQUARE_SUM_THRESHOLD = 4;
+/** 加速度が増加した回数の閾値 */
+static constexpr int8_t ACCEL_INCREASE_COUNT_THRESHOLD_FOR_LAUNCH = 50;
 
 // 気圧による離床検知の設定
 /** 判定に必要な気圧データの数 */
@@ -52,7 +54,11 @@ static constexpr int8_t PRESSURE_INCREASE_COUNT_THRESHOLD_FOR_APOGEE = 5;
 
 // タイマーによる頂点検知の設定
 /** 離床検知から何秒立ったら頂点とするか(ms) */
-static constexpr uint32_t TIME_THRESHOLD_FOR_APOGEE_FROM_LAUNCH = 9000;
+static constexpr uint32_t TIME_THRESHOLD_FOR_APOGEE_FROM_LAUNCH = 18000;
+
+// エンジン燃焼中の減速機構作動禁止時間
+static constexpr uint32_t TIME_THRESHOLD_FOR_ENGINE_FIRE_FOR_DECELERATION =
+    10000;
 }  // namespace ConditionConfig
 
 struct AccelData {

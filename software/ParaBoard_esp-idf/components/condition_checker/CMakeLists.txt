@@ -7,4 +7,5 @@ idf_component_register(
         esp_common
         log
         esp_timer
+        servo_controller
 ) 

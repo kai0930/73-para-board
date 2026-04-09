@@ -7,6 +7,7 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "led_controller.hpp"
 #include "log_task_handler.hpp"
 #include "mode_manager.hpp"
 #include "sd_controller.hpp"
@@ -25,11 +26,12 @@ class CommandHandler {
    * @param sensor_handler センサータスクハンドラへのポインタ
    * @param log_handler ログタスクハンドラへのポインタ
    * @param servo_controller サーボコントローラーへのポインタ
+   * @param led_controller LEDコントローラーへのポインタ
    * @return 初期化が成功したかどうか
    */
   bool init(CanComm* can_comm, SdController* logger,
             SensorTaskHandler* sensor_handler, LogTaskHandler* log_handler,
-            ServoController* servo_controller);
+            ServoController* servo_controller, LedController* led_controller);
 
   /**
    * @brief コマンド受信タスクを開始する
@@ -59,13 +61,25 @@ class CommandHandler {
   static constexpr int TASK_PRIORITY = 5;
   static constexpr int UART_DELAY_MS = 10;
 
+  // モードに応じたLEDの点滅パターン
+  static constexpr uint32_t START_MODE_LED_ON_TIME_MS = 1500;
+  static constexpr uint32_t START_MODE_LED_OFF_TIME_MS = 1500;
+  static constexpr uint32_t LOGGING_MODE_LED_ON_TIME_MS = 150;
+  static constexpr uint32_t LOGGING_MODE_LED_OFF_TIME_MS = 800;
+
   TaskHandle_t command_task_handle = nullptr;
   CanComm* can_comm = nullptr;
   SdController* logger = nullptr;
   SensorTaskHandler* sensor_handler = nullptr;
   LogTaskHandler* log_handler = nullptr;
   ServoController* servo_controller = nullptr;
+  LedController* led_controller = nullptr;
   ModeManager* mode_manager = nullptr;
+
+  // 通信モードの列挙型
+  enum class CommMode { CAN, UART };
+
+  CommMode comm_mode = CommMode::CAN;  // デフォルトはCAN
 
   /**
    * @brief モードマネージャーを設定する

@@ -8,6 +8,7 @@ idf_component_register(
         log_task_handler
         sensor_task_handler
         servo_controller
+        led_controller
         mode_manager
         condition_checker
         config
